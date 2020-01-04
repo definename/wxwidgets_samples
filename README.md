@@ -1,4 +1,4 @@
-## wxWidgets version 3.1.3
+## wxWidgets v3.1.3
 
 Set env:
 
@@ -6,10 +6,10 @@ Set env:
 
 `wxWidgets_ROOT_DIR` - e.g: F:\dev\wxwidgets\wxwidgets_lib\wxwidgets313
 
-## Boost version 1.72
+## Boost v1.72
 
 Set env:
 
 `BOOST_ROOT` - e.g: F:\dev\boost\boost_lib\boost72
 
-## Poco version 1.7.0
+## Poco v1.7.0
