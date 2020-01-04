@@ -1,0 +1,6 @@
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+IDI_ICON                      ICON                    "@CMAKE_CURRENT_LIST_DIR@/src/res/project.ico"
