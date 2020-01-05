@@ -63,13 +63,11 @@ add_precompiled_headers(${PROJECT_NAME} "src/")
 include_directories(
 	include
 	${POCO_INCLUDE_DIR}
-	${Boost_INCLUDE_DIRS}
 	)
 
 target_link_libraries(${PROJECT_NAME}
 	${wxWidgets_LIBRARIES}
 	${POCO_LIBRARIES}
-	${Boost_LIBRARIES}
 	Ws2_32.lib
 	Iphlpapi.lib
 	)

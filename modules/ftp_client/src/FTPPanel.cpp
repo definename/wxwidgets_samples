@@ -116,7 +116,7 @@ void FTPPanel::InitializeSplitter(wxBoxSizer* sizer)
 		wxMessageBox(wxString(e.what()).ToStdWstring(), wxT("Error"), wxICON_ERROR);
 	}
 
-	volumeController_->DoOnVolume(boost::bind(&FTPListLocal::ChangeRoot, listLocal_, _1));
+	volumeController_->SetVolumeCb(std::bind(&FTPListLocal::ChangeRoot, listLocal_, std::placeholders::_1));
 
 	vSplitter->SplitVertically(listRemote_, listLocal_, 0);
 	sizer->Add(vSplitter, wxSizerFlags().Proportion(1).Expand().Border(wxALL, 0));

@@ -1,7 +1,5 @@
 project(null_app)
 
-include(${wxWidgets_USE_FILE})
-
 configure_file(src/res/nullapp.rc.cmake nullapp.rc @ONLY)
 
 set(PROJECT_HEADERS

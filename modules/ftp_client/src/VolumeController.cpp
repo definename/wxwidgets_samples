@@ -11,9 +11,9 @@ VolumeController::VolumeController()
 VolumeController::~VolumeController()
 { }
 
-boost::signals2::connection VolumeController::DoOnVolume(const OnVolume::slot_type& signal)
-{
-	return onVolume_.connect(signal);
+
+void VolumeController::SetVolumeCb(const VolumeCb& volumeCb) {
+	volumeCb_ = volumeCb;
 }
 
 void VolumeController::EnumerateVolumes(wxBoxSizer* sizer, wxWindow* parent)
@@ -31,7 +31,7 @@ void VolumeController::EnumerateVolumes(wxBoxSizer* sizer, wxWindow* parent)
 		vol.btnPtr_ = btn;
 		vol.fs_ = fs;
 		volumes_.push_back(vol);
-		btn->Bind(wxEVT_BUTTON, boost::bind(&VolumeController::OnClicked, this, _1, vol));
+		btn->Bind(wxEVT_BUTTON, std::bind(&VolumeController::OnClicked, this, std::placeholders::_1, vol));
 		sizer->Add(btn, wxSizerFlags().Proportion(0).Border(wxALL, 0));
 	}
 }
@@ -93,7 +93,7 @@ void VolumeController::OnClicked(wxCommandEvent& e, const Volume& volume)
 {
 	try
 	{
-		onVolume_(volume.fs_.GetName());
+		volumeCb_(volume.fs_.GetName());
 		SetActiveVolume(volume);
 	}
 	catch (const std::exception& e)

@@ -6,8 +6,6 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 option(BUILD_WITH_STATIC_CRT "Use static run-time libraries (/MT or /MTd linker flags)" OFF)
 option(BUILD_SHARED_LIBS "Build shared libraries (.dll) instead of static ones (.lib)" OFF)
 
-cmake_policy(SET CMP0074 NEW)
-option(BUILD_WITH_BOOST "Build with build support" ON)
 option(BUILD_WITH_POCO "Build with poco support" ON)
 
 include(PCHSupport)
@@ -60,16 +58,6 @@ set(POCO_ROOT ${EXTERNAL_INSTALL_PATH}/Poco)
 set(wxWidgets_CONFIGURATION mswu)
 find_package(wxWidgets COMPONENTS core base adv net webview REQUIRED)
 include(${wxWidgets_USE_FILE})
-
-###########################################################
-# Boost ###################################################
-
-if (BUILD_WITH_BOOST)
-	set(Boost_USE_STATIC_LIBS ON)
-	set(Boost_USE_MULTITHREADED ON)
-	set(Boost_USE_STATIC_RUNTIME ${BUILD_WITH_STATIC_CRT})
-	find_package(Boost REQUIRED COMPONENTS filesystem)
-endif()
 
 ###########################################################
 # Poco ####################################################

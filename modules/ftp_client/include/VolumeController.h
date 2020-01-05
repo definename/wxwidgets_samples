@@ -24,17 +24,17 @@ public:
 		wxFSVolume fs_;
 		wxButton* btnPtr_;
 	};
-	//! Volumes container type.
-	typedef std::list<Volume> Volumes;
+	//! Volume container type.
+	using Volumes = std::list<Volume>;
 	//! OnVolume signal type.
-	typedef boost::signals2::signal<void(const wxString&)> OnVolume;
+	using VolumeCb = std::function<void(const wxString&)>;
 
 	//
 	// Public interface.
 	//
 public:
-	//! Sets OnVolume signal.
-	boost::signals2::connection DoOnVolume(const OnVolume::slot_type& signal);
+	//! Sets volume cb.
+	void SetVolumeCb(const VolumeCb& volumeCb);
 	//! Enumerates volumes.
 	void EnumerateVolumes(wxBoxSizer* sizer, wxWindow* parent);
 	//! Returns first volume.
@@ -62,8 +62,8 @@ private:
 private:
 	//! Volumes container.
 	Volumes volumes_;
-	//! On volume signal.
-	OnVolume onVolume_;
+	//! Volume cb.
+	VolumeCb volumeCb_;
 };
 
 };
