@@ -38,7 +38,7 @@ ZooList::ZooList(wxWindow* parent)
 	cell.SetWidth(100);
 	InsertColumn(cell.GetId(), cell);
 
-	for (int i = 0; i != 3; ++i) {
+	for (int i = 0; i != 5; ++i) {
 		wxString str;
 		str.Printf("Elephant%d", i);
 		ZooDataPtr zooData = ZooDataPtr(new ZooData(str, wxT("Vasya"), wxT("male"), wxT("12")));
@@ -78,6 +78,7 @@ bool ZooList::RemoveItem(const long& index) {
 		it->second = zooHash_[lastIndex];
 		zooHash_.erase(lastIndex);
 		ret = true;
+		RefreshItem(index);
 		Update();
 	}
 	return ret;
