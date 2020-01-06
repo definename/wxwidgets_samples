@@ -77,7 +77,7 @@ void ZooFramePanel::OnControl(wxCommandEvent& e) {
 			if (!zooList_->RemoveItem(index)) {
 				wxString msg;
 				msg.Printf("Failed to remove item with given index:%d", index);
-				wxMessageBox(msg.ToStdWstring(), wxT("Update item"), wxICON_WARNING, this);
+				wxMessageBox(msg.ToStdWstring(), wxT("Remove item"), wxICON_WARNING, this);
 			}
 		}
 		else {
