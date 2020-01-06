@@ -24,10 +24,10 @@ ZooAddUpdateDialog::~ZooAddUpdateDialog() {
 
 ZooDataPtr ZooAddUpdateDialog::GetZooData() const {
 	ZooDataPtr zooData = ZooDataPtr(new ZooData(
-		zooAddUpdatePanel_->GetName(),
-		zooAddUpdatePanel_->GetGender(),
-		zooAddUpdatePanel_->GetAge(),
-		zooAddUpdatePanel_->GetCell()));
+		zooAddUpdatePanel_->GetName().ToStdWstring(),
+		zooAddUpdatePanel_->GetGender().ToStdWstring(),
+		zooAddUpdatePanel_->GetAge().ToStdWstring(),
+		zooAddUpdatePanel_->GetCell().ToStdWstring()));
 	return zooData;
 }
 

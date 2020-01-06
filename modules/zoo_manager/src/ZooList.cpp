@@ -41,7 +41,7 @@ ZooList::ZooList(wxWindow* parent)
 	for (int i = 0; i != 5; ++i) {
 		wxString str;
 		str.Printf("Elephant%d", i);
-		ZooDataPtr zooData = ZooDataPtr(new ZooData(str, wxT("Vasya"), wxT("male"), wxT("12")));
+		ZooDataPtr zooData = ZooDataPtr(new ZooData(str.ToStdWstring(), wxT("Vasya"), wxT("male"), wxT("12")));
 		zooHash_.insert(ZooHash::value_type(i, zooData));
 	}
 }

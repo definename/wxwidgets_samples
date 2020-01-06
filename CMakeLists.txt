@@ -7,6 +7,7 @@ option(BUILD_WITH_STATIC_CRT "Use static run-time libraries (/MT or /MTd linker 
 option(BUILD_SHARED_LIBS "Build shared libraries (.dll) instead of static ones (.lib)" OFF)
 
 option(BUILD_WITH_POCO "Build with poco support" ON)
+option(BUILD_WITH_BOOST "Build with boost support" ON)
 
 include(PCHSupport)
 include(CRTLinkage)
@@ -51,6 +52,17 @@ set(PATCH_PATH ${EXTERNAL_PATH}/patches)
 set(EXTERNAL_INSTALL_PATH ${CMAKE_BINARY_DIR}/external)
 # Poco root directory
 set(POCO_ROOT ${EXTERNAL_INSTALL_PATH}/Poco)
+
+###########################################################
+# Boost ###################################################
+
+if(BUILD_WITH_BOOST)
+	cmake_policy(SET CMP0074 NEW)
+	set(Boost_USE_STATIC_LIBS ON)
+	set(Boost_USE_MULTITHREADED ON)
+	set(Boost_USE_STATIC_RUNTIME ${BUILD_WITH_STATIC_CRT})
+	find_package(Boost REQUIRED COMPONENTS serialization)
+endif()
 
 ###########################################################
 # wxWidgets ###############################################

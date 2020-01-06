@@ -11,9 +11,9 @@ class ZooApp : public wxApp
 	// Construction and destruction.
 public:
 	//! Constructor.
-	ZooApp();
+	ZooApp() = default;
 	//! Destructor.
-	~ZooApp();
+	~ZooApp() = default;
 
 	// Public types.
 public:

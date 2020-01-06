@@ -52,10 +52,13 @@ add_precompiled_headers(${PROJECT_NAME} "src/")
 target_include_directories(${PROJECT_NAME}
 	PRIVATE
 		include
+		${Boost_INCLUDE_DIRS}
 	)
 
 target_link_libraries(${PROJECT_NAME}
-	${wxWidgets_LIBRARIES}
+	PRIVATE
+		${wxWidgets_LIBRARIES}
+		${Boost_LIBRARIES}
 	)
 
 add_dependencies(${PROJECT_NAME}
