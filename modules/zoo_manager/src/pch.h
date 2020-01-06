@@ -13,6 +13,8 @@
 #include <wx/button.h>
 #include <wx/dialog.h>
 #include <wx/textctrl.h>
+#include <wx/hashmap.h>
+#include <wx/sharedptr.h>
 
 // #include "wx/filename.h"
 // #include <wx/textctrl.h>

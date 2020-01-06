@@ -6,14 +6,14 @@ namespace zoo
 // Forward declaration.
 class ZooList;
 
-class ZooListPanel : public wxPanel
+class ZooFramePanel : public wxPanel
 {
 	// Construction and destruction.
 public:
 	//! Constructor.
-	ZooListPanel(wxWindow* parent);
+	ZooFramePanel(wxWindow* parent);
 	//! Destructor.
-	~ZooListPanel();
+	~ZooFramePanel();
 
 	// Public types.
 public:
@@ -36,6 +36,7 @@ private:
 
 	// Private members.
 private:
+	// Gui list control pointer.
 	ZooListPtr zooList_;
 };
 

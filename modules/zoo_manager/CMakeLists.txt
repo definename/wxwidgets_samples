@@ -4,19 +4,20 @@ configure_file(src/res/nullapp.rc.cmake nullapp.rc @ONLY)
 
 set(PROJECT_HEADERS
 	include/ZooApp.h
+	include/ZooAddUpdateDialog.h
+	include/ZooAddUpdatePanel.h
 	include/ZooFrame.h
+	include/ZooFramePanel.h
 	include/ZooList.h
-	include/ZooListPanel.h
-	include/ZooAddDialog.h
-	include/ZooAddPanel.h
+	include/ZooTypes.h
 	)
 set(PROJECT_SOURCES
 	src/ZooApp.cpp
+	src/ZooAddUpdateDialog.cpp
+	src/ZooAddUpdatePanel.cpp
 	src/ZooFrame.cpp
+	src/ZooFramePanel.cpp
 	src/ZooList.cpp
-	src/ZooListPanel.cpp
-	src/ZooAddDialog.cpp
-	src/ZooAddPanel.cpp
 	)
 set(PROJECT_RESOURCES
 	src/res/nullapp.ico

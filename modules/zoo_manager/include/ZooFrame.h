@@ -4,7 +4,7 @@ namespace zoo
 {
 
 // Forward declaration.
-class ZooListPanel;
+class ZooFramePanel;
 
 class ZooFrame: public wxFrame
 {
@@ -18,7 +18,7 @@ public:
 	// Public types.
 public:
 	//! Main frame pointer type.
-	using ZooPanelPtr = ZooListPanel*;
+	using ZooPanelPtr = ZooFramePanel*;
 
 	// Private members.
 private:
