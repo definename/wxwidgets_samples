@@ -23,9 +23,9 @@ ZooFramePanel::ZooFramePanel(wxWindow* parent)
 	
 	// Buttons.
 	wxBoxSizer* controlSizer = new wxBoxSizer(wxVERTICAL);
-	controlSizer->Add(new wxButton(this, static_cast<int>(CommandId::ID_ADD), wxT("Add")), 1, wxSTRETCH_NOT);
-	controlSizer->Add(new wxButton(this, static_cast<int>(CommandId::ID_UPDATE), wxT("Update")), 1, wxSTRETCH_NOT);
-	controlSizer->Add(new wxButton(this, static_cast<int>(CommandId::ID_REMOVE), wxT("Remove")), 1, wxSTRETCH_NOT);
+	controlSizer->Add(new wxButton(this, FramePanelButtonId::ID_ADD, wxT("Add")), 1, wxSTRETCH_NOT);
+	controlSizer->Add(new wxButton(this, FramePanelButtonId::ID_UPDATE, wxT("Update")), 1, wxSTRETCH_NOT);
+	controlSizer->Add(new wxButton(this, FramePanelButtonId::ID_REMOVE, wxT("Remove")), 1, wxSTRETCH_NOT);
 
 	topSizer->Add(controlSizer, 0, wxSTRETCH_NOT | wxUP | wxDOWN | wxRIGHT, border_size);
 
@@ -37,8 +37,8 @@ ZooFramePanel::~ZooFramePanel() {
 }
 
 void ZooFramePanel::OnControl(wxCommandEvent& e) {
-	const CommandId buttonId = static_cast<CommandId>(e.GetId());
-	if (buttonId == CommandId::ID_ADD) {
+	const FramePanelButtonId buttonId = static_cast<FramePanelButtonId>(e.GetId());
+	if (buttonId == FramePanelButtonId::ID_ADD) {
 		ZooAddUpdateDialog* addDialog = new ZooAddUpdateDialog(this);
 		if (addDialog->ShowModal() == wxID_OK) {
 			ZooDataPtr zooData = addDialog->GetZooData();
@@ -48,7 +48,7 @@ void ZooFramePanel::OnControl(wxCommandEvent& e) {
 		}
 		addDialog->Destroy();
 	}
-	else if (buttonId == CommandId::ID_UPDATE) {
+	else if (buttonId == FramePanelButtonId::ID_UPDATE) {
 		long index;
 		if (zooList_->GetSelectedIndex(index)) {
 			ZooDataPtr zooDataOld;
@@ -71,7 +71,7 @@ void ZooFramePanel::OnControl(wxCommandEvent& e) {
 		else {
 			wxMessageBox(wxT("Please select item to update"), wxT("Update item"), wxICON_INFORMATION, this);
 		}
-	} else if (buttonId == CommandId::ID_REMOVE) {
+	} else if (buttonId == FramePanelButtonId::ID_REMOVE) {
 		long index;
 		if (zooList_->GetSelectedIndex(index)) {
 			if (!zooList_->RemoveItem(index)) {

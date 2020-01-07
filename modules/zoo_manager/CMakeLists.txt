@@ -10,6 +10,7 @@ set(PROJECT_HEADERS
 	include/ZooFramePanel.h
 	include/ZooList.h
 	include/ZooTypes.h
+	include/ZooUtil.h
 	)
 set(PROJECT_SOURCES
 	src/ZooApp.cpp

@@ -13,7 +13,7 @@ public:
 	//! Constructor.
 	ZooFrame();
 	//! Destructor.
-	~ZooFrame();
+	~ZooFrame() = default;
 
 	// Public types.
 public:
@@ -22,6 +22,7 @@ public:
 
 	// Private members.
 private:
+	// Zoo panel pointer.
 	ZooPanelPtr zooPanel_;
 };
 

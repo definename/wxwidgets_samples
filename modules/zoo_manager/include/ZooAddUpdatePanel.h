@@ -10,13 +10,12 @@ public:
 	//! Constructor.
 	ZooAddUpdatePanel(wxWindow* parent);
 	//! Destructor.
-	~ZooAddUpdatePanel();
+	~ZooAddUpdatePanel() = default;
 
 	// Public types.
 public:
 	//! Command id type.
-	enum class CommandId : int
-	{
+	enum CommandId {
 		ID_NAME = 0,
 		ID_GENDER,
 		ID_AGE,
@@ -28,12 +27,10 @@ public:
 	// Set name.
 	void SetName(const wxString& name) {
 		name_->ChangeValue(name);
-
 	}
 	// Set gender.
 	void SetGender(const wxString& gender) {
 		gender_->ChangeValue(gender);
-
 	}
 	// Set age.
 	void SetAge(const wxString& age) {

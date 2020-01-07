@@ -19,9 +19,8 @@ public:
 public:
 	//! Main frame pointer type.
 	using ZooListPtr = ZooList*;
-	//! Command id type.
-	enum class CommandId : int
-	{
+	//! Frame panel id type.
+	enum FramePanelButtonId {
 		ID_ADD = 0,
 		ID_REMOVE,
 		ID_UPDATE

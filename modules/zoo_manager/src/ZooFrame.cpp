@@ -9,10 +9,8 @@ ZooFrame::ZooFrame()
 	: wxFrame(NULL, wxID_ANY, wxT("Zoo Manager"), wxDefaultPosition, wxSize(550, 300), wxDEFAULT_FRAME_STYLE)
 	, zooPanel_(new ZooFramePanel(this))
 {
+	SetIcon(wxICON(IDI_ICON));
 	SetMinSize(GetSize());
-}
-
-ZooFrame::~ZooFrame() {
 }
 
 } // namespace zoo

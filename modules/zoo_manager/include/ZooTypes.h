@@ -41,18 +41,8 @@ public:
 };
 
 // Zoo data pointer type.
-using ZooDataPtr = wxSharedPtr<ZooData>;
-
-template <typename TOArch, typename TSource, typename TTarget>
-void SerializeTo(const TSource& source, TTarget& target) {
-	TOArch oa(target);
-	oa << source;
-}
-
-template <typename TIArch, typename TSource, typename TTarget>
-void DeserializeFrom(TSource& source, TTarget& target) {
-	TIArch ia(source);
-	ia >> target;
-}
+using ZooDataPtr = std::shared_ptr<ZooData>;
+// Zoo hash type.
+using ZooHash = std::unordered_map<int, ZooDataPtr>;
 
 }; // namespace zoo

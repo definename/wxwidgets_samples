@@ -5,8 +5,6 @@
 namespace zoo
 {
 
-WX_DECLARE_HASH_MAP(int, ZooDataPtr, wxIntegerHash, wxIntegerEqual, ZooHash);
-
 class ZooList: public wxListCtrl
 {
 	// Construction and destruction.

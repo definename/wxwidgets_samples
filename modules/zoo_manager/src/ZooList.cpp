@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "ZooList.h"
+#include "ZooUtil.h"
 
 namespace zoo
 {
@@ -38,22 +39,29 @@ ZooList::ZooList(wxWindow* parent)
 	cell.SetWidth(100);
 	InsertColumn(cell.GetId(), cell);
 
-	for (int i = 0; i != 5; ++i) {
-		wxString str;
-		str.Printf("Elephant%d", i);
-		ZooDataPtr zooData = ZooDataPtr(new ZooData(str.ToStdWstring(), wxT("Vasya"), wxT("male"), wxT("12")));
-		zooHash_.insert(ZooHash::value_type(i, zooData));
+	// De-serialize zoo data container.
+	if (zoo_db_path.FileExists()) {
+		std::ifstream ifile(zoo_db_path.GetFullPath().ToStdWstring(), std::ios::in | std::ios::binary);
+		DeserializeFrom<boost::archive::binary_iarchive>(ifile, zooHash_);
 	}
 }
 
 ZooList::~ZooList() {
+	try {
+		// Serialize zoo data container.
+		std::ofstream ofile(zoo_db_path.GetFullPath().ToStdWstring(), std::ios::out | std::ios::binary);
+		SerializeTo<boost::archive::binary_oarchive>(zooHash_, ofile);
+	}
+	catch (std::exception&) {
+		wxMessageBox(wxT("Failed to serialize zoo data"), wxT("Serialize zoo data"), wxICON_WARNING, this);
+	}
 	zooHash_.clear();
 }
 
 bool ZooList::AddItem(ZooDataPtr zooData) {
-	ZooHash::Insert_Result res = zooHash_.insert(ZooHash::value_type(zooHash_.size(), zooData));
+	auto ret = zooHash_.insert(ZooHash::value_type(zooHash_.size(), zooData));
 	Update();
-	return res.second;
+	return ret.second;
 }
 
 bool ZooList::UpdateItem(const long& index, ZooDataPtr zooDataNew) {
