@@ -17,7 +17,7 @@ public:
 
 	// Public types.
 public:
-	// Main frame pointer type.
+	// Frame panel pointer type.
 	using ZooPanelPtr = ZooFramePanel*;
 
 	// Private members.
