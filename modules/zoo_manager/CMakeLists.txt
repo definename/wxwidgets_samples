@@ -62,8 +62,7 @@ target_link_libraries(${PROJECT_NAME}
 		${Boost_LIBRARIES}
 	)
 
-add_dependencies(${PROJECT_NAME}
-	Poco
-	)
+# add_dependencies(${PROJECT_NAME}
+	# )
 
 #set_target_properties(${PROJECT_NAME} PROPERTIES EXCLUDE_FROM_DEFAULT_BUILD 1)
