@@ -10,16 +10,16 @@ class ZooFramePanel : public wxPanel
 {
 	// Construction and destruction.
 public:
-	//! Constructor.
+	// Constructor.
 	ZooFramePanel(wxWindow* parent);
-	//! Destructor.
+	// Destructor.
 	~ZooFramePanel();
 
 	// Public types.
 public:
-	//! Main frame pointer type.
+	// Frame pointer type.
 	using ZooListPtr = ZooList*;
-	//! Frame panel id type.
+	// Frame panel id type.
 	enum FramePanelButtonId {
 		ID_ADD = 0,
 		ID_REMOVE,

@@ -10,14 +10,14 @@ class ZooFrame: public wxFrame
 {
 	// Construction and destruction.
 public:
-	//! Constructor.
+	// Constructor.
 	ZooFrame();
-	//! Destructor.
+	// Destructor.
 	~ZooFrame() = default;
 
 	// Public types.
 public:
-	//! Main frame pointer type.
+	// Main frame pointer type.
 	using ZooPanelPtr = ZooFramePanel*;
 
 	// Private members.

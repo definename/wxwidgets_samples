@@ -5,9 +5,9 @@ namespace zoo
 
 struct ZooData
 {
-	//! Friend class.
+	// Friend class.
 	friend boost::serialization::access;
-	//! Serialization.
+	// Serialization.
 	template<class Archive>
 	void serialize(Archive& ar, const unsigned int version) {
 		ar & name_;

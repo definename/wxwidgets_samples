@@ -7,14 +7,14 @@ class ZooAddUpdatePanel: public wxPanel
 {
 	// Construction and destruction.
 public:
-	//! Constructor.
+	// Constructor.
 	ZooAddUpdatePanel(wxWindow* parent);
-	//! Destructor.
+	// Destructor.
 	~ZooAddUpdatePanel() = default;
 
 	// Public types.
 public:
-	//! Command id type.
+	// Command id type.
 	enum CommandId {
 		ID_NAME = 0,
 		ID_GENDER,
@@ -35,7 +35,6 @@ public:
 	// Set age.
 	void SetAge(const wxString& age) {
 		age_->ChangeValue(age);
-
 	}
 	// Set cell.
 	void SetCell(const wxString& cell) {

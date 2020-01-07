@@ -12,9 +12,9 @@ class ZooAddUpdateDialog: public wxDialog
 {
 	// Construction and destruction.
 public:
-	//! Constructor.
+	// Constructor.
 	ZooAddUpdateDialog(wxWindow* parent, const ZooDataPtr zooData = ZooDataPtr());
-	//! Destructor.
+	// Destructor.
 	~ZooAddUpdateDialog();
 
 	// Public interface.
@@ -24,12 +24,12 @@ public:
 
 	// Public types.
 public:
-	//! Add panel pointer type.
+	// Add panel pointer type.
 	using ZooAddPanelPtr = ZooAddUpdatePanel*;
 
 	// Private members.
 private:
-	//! Panel pointer.
+	// Panel pointer.
 	ZooAddPanelPtr zooAddUpdatePanel_;
 };
 

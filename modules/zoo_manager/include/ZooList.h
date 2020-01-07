@@ -9,9 +9,9 @@ class ZooList: public wxListCtrl
 {
 	// Construction and destruction.
 public:
-	//! Constructor.
+	// Constructor.
 	ZooList(wxWindow* parent);
-	//! Destructor.
+	// Destructor.
 	~ZooList();
 
 	// Public types.
