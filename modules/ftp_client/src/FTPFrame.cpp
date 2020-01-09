@@ -29,12 +29,12 @@ FTPFrame::~FTPFrame()
 void FTPFrame::InitializeMenu()
 {
 	wxMenu *menuFile = new wxMenu;
-	menuFile->Append(ID_MENU_EXIT, wxT("&Exit..."));
+	menuFile->Append(ID_MENU_EXIT, wxT("&Exit"));
 	menuFile->Append(ID_DOWNLOAD, wxT("&Download"));
 	menuFile->Append(ID_UPLOAD, wxT("&Upload"));
 
 	wxMenu *menuAbout = new wxMenu;
-	menuAbout->Append(ID_MENU_ABOUT, wxT("&About..."));
+	menuAbout->Append(ID_MENU_ABOUT, wxT("&About"));
 
 	wxMenuBar *menubar = new wxMenuBar;
 	menubar->Append(menuFile, wxT("&File"));
@@ -56,7 +56,7 @@ void FTPFrame::OnExit(wxCommandEvent& WXUNUSED(e))
 void FTPFrame::OnAbout(wxCommandEvent& WXUNUSED(e))
 {
 	wxString message(wxT(
-		"NULL File transfer protocol (FTP) client\nCreated by Kolomiytsev Oleg\nKharkov 2016\nVersion 1.0.0.1"));
+		"File transfer protocol (FTP) client\nCreated by Oleh Kolomiitsev\nKharkiv 2020\nVersion 1.0.0.2"));
 	wxMessageBox(message, wxT("About"), wxOK | wxCENTRE, this);
 }
 
