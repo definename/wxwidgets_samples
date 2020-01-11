@@ -23,9 +23,9 @@ ZooFramePanel::ZooFramePanel(wxWindow* parent)
 	
 	// Buttons.
 	wxBoxSizer* controlSizer = new wxBoxSizer(wxVERTICAL);
-	controlSizer->Add(new wxButton(this, FramePanelButtonId::ID_ADD, wxT("Add")), 1, wxSTRETCH_NOT);
-	controlSizer->Add(new wxButton(this, FramePanelButtonId::ID_UPDATE, wxT("Update")), 1, wxSTRETCH_NOT);
-	controlSizer->Add(new wxButton(this, FramePanelButtonId::ID_REMOVE, wxT("Remove")), 1, wxSTRETCH_NOT);
+	controlSizer->Add(new wxButton(this, ZooEvent::ID_ADD, wxT("Add")), 1, wxSTRETCH_NOT);
+	controlSizer->Add(new wxButton(this, ZooEvent::ID_UPDATE, wxT("Update")), 1, wxSTRETCH_NOT);
+	controlSizer->Add(new wxButton(this, ZooEvent::ID_REMOVE, wxT("Remove")), 1, wxSTRETCH_NOT);
 
 	topSizer->Add(controlSizer, 0, wxSTRETCH_NOT | wxUP | wxDOWN | wxRIGHT, border_size);
 
@@ -37,9 +37,9 @@ ZooFramePanel::~ZooFramePanel() {
 }
 
 void ZooFramePanel::OnControl(wxCommandEvent& e) {
-	const FramePanelButtonId buttonId = static_cast<FramePanelButtonId>(e.GetId());
-	if (buttonId == FramePanelButtonId::ID_ADD) {
-		ZooAddUpdateDialog* addDialog = new ZooAddUpdateDialog(this);
+	const ZooEvent buttonId = static_cast<ZooEvent>(e.GetId());
+	if (buttonId == ZooEvent::ID_ADD) {
+		ZooAddUpdateDialog* addDialog = new ZooAddUpdateDialog(this, wxT("Add"));
 		if (addDialog->ShowModal() == wxID_OK) {
 			ZooDataPtr zooData = addDialog->GetZooData();
 			if (!zooList_->AddItem(zooData)) {
@@ -48,12 +48,12 @@ void ZooFramePanel::OnControl(wxCommandEvent& e) {
 		}
 		addDialog->Destroy();
 	}
-	else if (buttonId == FramePanelButtonId::ID_UPDATE) {
+	else if (buttonId == ZooEvent::ID_UPDATE) {
 		long index;
 		if (zooList_->GetSelectedIndex(index)) {
 			ZooDataPtr zooDataOld;
 			if (zooList_->GetItem(index, zooDataOld)) {
-				ZooAddUpdateDialog* updateDialog = new ZooAddUpdateDialog(this, zooDataOld);
+				ZooAddUpdateDialog* updateDialog = new ZooAddUpdateDialog(this, wxT("Update"), zooDataOld);
 				if (updateDialog->ShowModal() == wxID_OK) {
 					ZooDataPtr zooData = updateDialog->GetZooData();
 					if (!zooList_->UpdateItem(index, zooData)) {
@@ -71,7 +71,7 @@ void ZooFramePanel::OnControl(wxCommandEvent& e) {
 		else {
 			wxMessageBox(wxT("Please select item to update"), wxT("Update item"), wxICON_INFORMATION, this);
 		}
-	} else if (buttonId == FramePanelButtonId::ID_REMOVE) {
+	} else if (buttonId == ZooEvent::ID_REMOVE) {
 		long index;
 		if (zooList_->GetSelectedIndex(index)) {
 			if (!zooList_->RemoveItem(index)) {

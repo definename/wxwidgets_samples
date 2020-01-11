@@ -19,15 +19,9 @@ public:
 public:
 	// Frame pointer type.
 	using ZooListPtr = ZooList*;
-	// Frame panel id type.
-	enum FramePanelButtonId {
-		ID_ADD = 0,
-		ID_REMOVE,
-		ID_UPDATE
-	};
 
-	// Private interface
-private:
+	// Public interface.
+public:
 	// Control event handler.
 	void OnControl(wxCommandEvent& e);
 	// Any class wishing to process wxWidgets events must use this macro.

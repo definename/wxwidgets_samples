@@ -13,7 +13,7 @@ class ZooAddUpdateDialog: public wxDialog
 	// Construction and destruction.
 public:
 	// Constructor.
-	ZooAddUpdateDialog(wxWindow* parent, const ZooDataPtr zooData = nullptr);
+	ZooAddUpdateDialog(wxWindow* parent, const wxString& title, const ZooDataPtr zooData = nullptr);
 	// Destructor.
 	~ZooAddUpdateDialog();
 

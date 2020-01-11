@@ -20,6 +20,11 @@ public:
 	// Frame panel pointer type.
 	using ZooPanelPtr = ZooFramePanel*;
 
+	// Private interface.
+private:
+	// Menu event handler.
+	void OnMenuEvent(wxCommandEvent& e);
+
 	// Private members.
 private:
 	// Zoo panel pointer.

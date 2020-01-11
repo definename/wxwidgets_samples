@@ -3,6 +3,15 @@
 namespace zoo
 {
 
+// Zoo event type.
+enum ZooEvent {
+	ID_ADD = 0,
+	ID_UPDATE,
+	ID_REMOVE,
+	ID_EXIT,
+	ID_ABOUT,
+};
+
 struct ZooData
 {
 	// Friend class.

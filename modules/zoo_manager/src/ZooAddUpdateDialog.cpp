@@ -6,8 +6,8 @@
 namespace zoo
 {
 
-ZooAddUpdateDialog::ZooAddUpdateDialog(wxWindow* parent, const ZooDataPtr zooData /*= nullptr*/)
-	: wxDialog(parent, wxID_ANY, wxT("Add dialog"), wxDefaultPosition, wxSize(400, 180))
+ZooAddUpdateDialog::ZooAddUpdateDialog(wxWindow* parent, const wxString& title, const ZooDataPtr zooData /*= nullptr*/)
+	: wxDialog(parent, wxID_ANY, title, wxDefaultPosition, wxSize(400, 180))
 	, zooAddUpdatePanel_(new ZooAddUpdatePanel(this)) {
 
 	if (zooData) {
