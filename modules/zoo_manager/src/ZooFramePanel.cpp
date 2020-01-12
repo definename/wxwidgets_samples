@@ -33,9 +33,6 @@ ZooFramePanel::ZooFramePanel(wxWindow* parent)
 	zooList_->Update();
 }
 
-ZooFramePanel::~ZooFramePanel() {
-}
-
 void ZooFramePanel::OnControl(wxCommandEvent& e) {
 	const ZooEvent buttonId = static_cast<ZooEvent>(e.GetId());
 	if (buttonId == ZooEvent::ID_ADD) {

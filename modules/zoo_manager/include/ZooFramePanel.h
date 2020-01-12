@@ -13,7 +13,7 @@ public:
 	// Constructor.
 	ZooFramePanel(wxWindow* parent);
 	// Destructor.
-	~ZooFramePanel();
+	~ZooFramePanel() = default;
 
 	// Public types.
 public:
