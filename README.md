@@ -14,4 +14,4 @@ Set env:
 
 ## Poco v1.7.0
 
-## MVS 16 2019
+## MSVC 16 2019
