@@ -1,23 +1,23 @@
 #include "pch.h"
-#include "ZooApp.h"
-#include "ZooFrame.h"
+#include "GameApp.h"
+#include "GameFrame.h"
 
-namespace zoo
+namespace game
 {
 
 //! Macro will allow wxWidgets to create the application object during program execution.
-wxIMPLEMENT_APP(ZooApp);
+wxIMPLEMENT_APP(GameApp);
 
-int ZooApp::OnExit() {
+int GameApp::OnExit() {
 	return wxApp::OnExit();
 }
 
-bool ZooApp::OnInit(void) {
+bool GameApp::OnInit(void) {
 	if (!wxApp::OnInit()) {
 		return false;
 	}
 
-	zooFrame_ = new ZooFrame();
+	zooFrame_ = new GameFrame();
 	return zooFrame_->Show(true);
 }
 

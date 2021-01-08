@@ -1,12 +1,14 @@
-project(GameApp)
+project(game_peace_and_war)
 
 configure_file(src/res/nullapp.rc.cmake nullapp.rc @ONLY)
 
 set(PROJECT_HEADERS
 	include/GameApp.h
+	include/GameFrame.h
 	)
 set(PROJECT_SOURCES
 	src/GameApp.cpp
+	src/GameFrame.cpp
 	)
 set(PROJECT_RESOURCES
 	src/res/nullapp.ico
@@ -38,6 +40,11 @@ add_executable(${PROJECT_NAME} WIN32
 
 add_precompiled_headers(${PROJECT_NAME} "src/")
 
+target_include_directories(${PROJECT_NAME}
+	PRIVATE
+		include
+	)
+	
 target_link_libraries(${PROJECT_NAME}
 	PRIVATE
 		${wxWidgets_LIBRARIES}
