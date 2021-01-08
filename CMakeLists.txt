@@ -6,15 +6,22 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 option(BUILD_WITH_STATIC_CRT "Use static run-time libraries (/MT or /MTd linker flags)" OFF)
 option(BUILD_SHARED_LIBS "Build shared libraries (.dll) instead of static ones (.lib)" OFF)
 
-message(STATUS "BUILD_WITH_STATIC_CRT ${BUILD_WITH_STATIC_CRT}")
-message(STATUS "BUILD_SHARED_LIBS ${BUILD_SHARED_LIBS}")
-
 option(BUILD_WITH_POCO "Build with poco support" ON)
 option(BUILD_WITH_BOOST "Build with boost support" ON)
 
 include(PCHSupport)
-include(CRTLinkage)
+# include(CRTLinkage)
 include(ExternalProject)
+
+if (${BUILD_WITH_STATIC_CRT})
+	if (${CMAKE_CONFIGURATION_TYPES} STREQUAL "Debug")
+		add_compile_options(/MTd)
+	elseif(${CMAKE_CONFIGURATION_TYPES} STREQUAL "Release")
+		add_compile_options(/MT)
+	else()
+		message(WARNING ${CMAKE_CONFIGURATION_TYPES})
+	endif()
+endif()
 
 ###########################################################
 # Version #################################################
@@ -134,7 +141,6 @@ add_subdirectory(modules/zoo_manager)
 add_subdirectory(modules/game_peace_and_war)
 # add_subdirectory(modules/gauge)
 add_subdirectory(modules/null_app)
-add_subdirectory(modules/test1)
 # add_subdirectory(modules/null_console)
 # add_subdirectory(modules/panel_border)
 # add_subdirectory(modules/wxInclude)
