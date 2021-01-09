@@ -21,6 +21,7 @@ private:
 	wxStaticText* palyer2Text_;
 	int player1Score_;
 	int player2Score_;
+	wxGrid* grid_;
 
 	// Public interface.
 public:
