@@ -15,8 +15,6 @@ class GameGrid : public wxPanel
 public:
 	GameGrid(wxPanel* parent)
 	: wxPanel(parent) {
-// 		Bind(wxEVT_SIZE, &BasicDrawPane::OnSize, this);
-// 		Bind(wxEVT_PAINT, &BasicDrawPane::OnPaint, this);
 	}
 
 	void OnPaint(wxPaintEvent& e) {
@@ -62,6 +60,19 @@ public:
 			size.GetWidth() - border,
 			((size.GetHeight() - title_size) / 2) + title_size);
 		dc.DrawLine(border, size.GetHeight() - border, size.GetWidth() - border, size.GetHeight() - border);
+
+		// Diagonal
+		dc.DrawLine(border + title_size, title_size, size.GetWidth() - border, size.GetHeight() - border);
+		dc.DrawLine(
+			border + title_size,
+			((size.GetHeight() - title_size) / 2) + title_size,
+			((size.GetWidth() - title_size) / 2) + title_size,
+			size.GetHeight() - border);
+		dc.DrawLine(
+			((size.GetWidth() - title_size) / 2) + title_size,
+			title_size,
+			size.GetWidth() - border,
+			((size.GetHeight() - title_size) / 2) + title_size);
 	}
 
 	void OnSize(wxSizeEvent& e) {
