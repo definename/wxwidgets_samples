@@ -39,4 +39,4 @@ private:
 
 wxDECLARE_APP(GameApp);
 
-}; // namespace zoo
+}; // namespace game

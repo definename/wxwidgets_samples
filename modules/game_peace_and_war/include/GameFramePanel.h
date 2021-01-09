@@ -12,6 +12,10 @@ public:
 	// Destructor.
 	~GameFramePanel() = default;
 
+private:
+	// Private interface
+	void OnControl(wxCommandEvent& e);
+
 	// Public interface.
 public:
 	// Any class wishing to process wxWidgets events must use this macro.
