@@ -18,7 +18,7 @@ public:
 	// Public types.
 public:
 	// Main frame pointer type.
-	using ZooFramePtr = GameFrame*;
+	using GameFramePtr = GameFrame*;
 
 	//
 	// Public interface.
@@ -33,8 +33,8 @@ public:
 	// Private date members.
 	//
 private:
-	// Zoo frame pointer.
-	ZooFramePtr zooFrame_;
+	// Game frame pointer.
+	GameFramePtr zooFrame_;
 };
 
 wxDECLARE_APP(GameApp);

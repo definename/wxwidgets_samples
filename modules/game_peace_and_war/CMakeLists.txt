@@ -5,10 +5,13 @@ configure_file(src/res/nullapp.rc.cmake nullapp.rc @ONLY)
 set(PROJECT_HEADERS
 	include/GameApp.h
 	include/GameFrame.h
+	include/GameFramePanel.h
+	include/GameTypes.h
 	)
 set(PROJECT_SOURCES
 	src/GameApp.cpp
 	src/GameFrame.cpp
+	src/GameFramePanel.cpp
 	)
 set(PROJECT_RESOURCES
 	src/res/nullapp.ico
