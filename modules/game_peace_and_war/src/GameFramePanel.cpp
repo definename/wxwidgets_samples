@@ -14,7 +14,9 @@ class GameGrid : public wxPanel
 {
 public:
 	GameGrid(wxPanel* parent)
-	: wxPanel(parent) {
+	: wxPanel(parent)
+	, player1_strategy_{ {0,-1},{2, 1} }
+	, player2_strategy_{ {0,2},{-1, 1} } {
 	}
 
 	void OnPaint(wxPaintEvent& e) {
@@ -40,6 +42,42 @@ public:
 			title_size / 2,
 			size.GetHeight() - border * 2,
 			90.0);
+
+		// Set strategy1
+		dc.DrawText(
+			wxString::Format("%d", player1_strategy_[0][0]),
+			title_size + border * 2,
+			((size.GetHeight() - title_size) / 2));
+		dc.DrawText(
+			wxString::Format("%d", player1_strategy_[0][1]),
+			(((size.GetWidth() - title_size) / 2) + title_size) + border,
+			((size.GetHeight() - title_size) / 2));
+		dc.DrawText(
+			wxString::Format("%d", player1_strategy_[1][0]),
+			title_size + border * 2,
+			size.GetHeight() - title_size);
+		dc.DrawText(
+			wxString::Format("%d", player1_strategy_[1][1]),
+			(((size.GetWidth() - title_size) / 2) + title_size) + border,
+			size.GetHeight() - title_size);
+
+		// Set strategy2
+		dc.DrawText(
+			wxString::Format("%d", player2_strategy_[0][0]),
+			(((size.GetWidth() - title_size) / 2) + title_size) - 40,
+			title_size * 2);
+		dc.DrawText(
+			wxString::Format("%d", player2_strategy_[0][1]),
+			(size.GetWidth() - border) - 40,
+			title_size * 2);
+		dc.DrawText(
+			wxString::Format("%d", player2_strategy_[1][0]),
+			(((size.GetWidth() - title_size) / 2) + title_size) - 40,
+			((size.GetHeight() - title_size) / 2) + title_size * 2);
+		dc.DrawText(
+			wxString::Format("%d", player2_strategy_[1][1]),
+			(size.GetWidth() - border) - 40,
+			((size.GetHeight() - title_size) / 2) + title_size * 2);
 
 		// Vertical
 		dc.DrawLine(border, border, border, size.GetHeight() - border);
@@ -79,7 +117,13 @@ public:
 		Refresh();
 		e.Skip();
 	}
+
 	wxDECLARE_EVENT_TABLE();
+
+	// Private data members
+private:
+	std::vector<std::vector<int>> player1_strategy_;
+	std::vector<std::vector<int>> player2_strategy_;
 };
 
 wxBEGIN_EVENT_TABLE(GameGrid, wxPanel)
