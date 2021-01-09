@@ -16,6 +16,12 @@ private:
 	// Private interface
 	void OnControl(wxCommandEvent& e);
 
+private:
+	wxStaticText* palyer1Text_;
+	wxStaticText* palyer2Text_;
+	int player1Score_;
+	int player2Score_;
+
 	// Public interface.
 public:
 	// Any class wishing to process wxWidgets events must use this macro.
