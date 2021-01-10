@@ -6,6 +6,7 @@
 #define PLAYER2_SCORE_STUB wxT("Игрок 2: %d")
 #define CONFLICT_PEACE wxT("Мир")
 #define CONFLICT_AGGRESION wxT("Агрессия")
+#define CONFLICT_OPTIMAL wxT("Оптимальная стратегия")
 
 namespace game
 {
@@ -25,6 +26,31 @@ public:
 		select_.append(std::to_string(player2_choice));
 		PaintNow();
 		return strategy_[player1_choice][player2_choice];
+	}
+
+	void DoOptimal() {
+		std::string select_min1 = "00";
+		int min1 = strategy_[0][0].first;
+		if (min1 > strategy_[0][1].first) {
+			min1 = strategy_[0][1].first;
+			select_min1 = "01";
+		}
+
+		std::string select_min2 = "10";
+		int min2 = strategy_[1][0].first;
+		if (min2 > strategy_[1][1].first) {
+			min2 = strategy_[1][1].first;
+			select_min2 = "11";
+		}
+
+		
+		int max1 = min1;
+		select_ = select_min1;
+		if (max1 < min2) {
+			max1 = min2;
+			select_ = select_min2;
+		}
+		PaintNow();
 	}
 
 	void PaintNow()
@@ -206,6 +232,7 @@ GameFramePanel::GameFramePanel(wxWindow* parent)
 	wxBoxSizer* controlSizer = new wxBoxSizer(wxVERTICAL);
 	controlSizer->Add(new wxButton(this, GameEvent::ID_PEACE, CONFLICT_PEACE), 1, wxEXPAND);
 	controlSizer->Add(new wxButton(this, GameEvent::ID_AGGRESSION, CONFLICT_AGGRESION), 1, wxEXPAND);
+	controlSizer->Add(new wxButton(this, GameEvent::ID_OPTIMAL_STRATEGY, CONFLICT_OPTIMAL), 1, wxEXPAND);
 	palyer1Text_ = new wxStaticText(this, wxID_ANY, wxString::Format(PLAYER1_SCORE_STUB, player1Score_));
 	controlSizer->Add(palyer1Text_, 1, wxEXPAND);
 	palyer2Text_ = new wxStaticText(this, wxID_ANY, wxString::Format(PLAYER2_SCORE_STUB, player1Score_));
@@ -244,6 +271,9 @@ void GameFramePanel::OnControl(wxCommandEvent& e) {
 		palyer1Text_->SetLabel(wxString::Format(PLAYER1_SCORE_STUB, player1Score_));
 		player2Score_ += res.second;
 		palyer2Text_->SetLabel(wxString::Format(PLAYER2_SCORE_STUB, player2Score_));
+	}
+	else if (buttonId == GameEvent::ID_OPTIMAL_STRATEGY) {
+		gameGrid_->DoOptimal();
 	}
 }
 
