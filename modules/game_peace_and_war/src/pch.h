@@ -5,6 +5,10 @@
 //
 
 #include <vector>
+#include <random>
+#include <ctime>
+#include <utility>
+#include <string>
 
 //////////////////////////////////////////////////////////////////////////
 // wxWidgets includes and definitions.

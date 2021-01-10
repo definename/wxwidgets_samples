@@ -3,6 +3,9 @@
 namespace game
 {
 
+// Forward declaration.
+class GameGrid;
+
 class GameFramePanel : public wxPanel
 {
 	// Construction and destruction.
@@ -22,6 +25,8 @@ private:
 	int player1Score_;
 	int player2Score_;
 	wxGrid* grid_;
+	std::default_random_engine random_engine_;
+	GameGrid* gameGrid_;
 
 	// Public interface.
 public:
