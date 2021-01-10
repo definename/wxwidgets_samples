@@ -4,8 +4,8 @@
 
 #define PLAYER1_SCORE_STUB wxT("Гравець #1(Ви): %d")
 #define PLAYER2_SCORE_STUB wxT("Гравець #2: %d")
-#define COOPERATE wxT("Не співробітничати")
-#define NOT_COOPERATE wxT("Співробітничати")
+#define NO_COOPERATE wxT("Не співробітничати")
+#define COOPERATE wxT("Співробітничати")
 #define CONFLICT_OPTIMAL wxT("Оптимальна стратегія")
 
 namespace game
@@ -109,17 +109,17 @@ public:
 		dc.SetBrush(brush);
 
 		// Horizontal text
-		dc.DrawText(COOPERATE, title_size + border * 2, title_size / 2);
-		dc.DrawText(NOT_COOPERATE, (((size.GetWidth() - title_size) / 2) + title_size) + border, title_size / 2);
+		dc.DrawText(NO_COOPERATE, title_size + border * 2, title_size / 2);
+		dc.DrawText(COOPERATE, (((size.GetWidth() - title_size) / 2) + title_size) + border, title_size / 2);
 
 		// Vertical text
 		dc.DrawRotatedText(
-			COOPERATE wxT("(Ви)"),
+			NO_COOPERATE wxT("(Ви)"),
 			title_size / 2,
 			(((size.GetHeight() - title_size) / 2) + title_size) - border,
 			90.0);
 		dc.DrawRotatedText(
-			NOT_COOPERATE wxT("(Ви)"),
+			COOPERATE wxT("(Ви)"),
 			title_size / 2,
 			size.GetHeight() - border * 2,
 			90.0);
@@ -237,8 +237,8 @@ GameFramePanel::GameFramePanel(wxWindow* parent)
 
 	// Buttons.
 	wxBoxSizer* controlSizer = new wxBoxSizer(wxVERTICAL);
-	controlSizer->Add(new wxButton(this, GameEvent::ID_PEACE, COOPERATE), 1, wxEXPAND);
-	controlSizer->Add(new wxButton(this, GameEvent::ID_AGGRESSION, NOT_COOPERATE), 1, wxEXPAND);
+	controlSizer->Add(new wxButton(this, GameEvent::ID_NO_COOPERATE, NO_COOPERATE), 1, wxEXPAND);
+	controlSizer->Add(new wxButton(this, GameEvent::ID_COOPERATE, COOPERATE), 1, wxEXPAND);
 	controlSizer->Add(new wxButton(this, GameEvent::ID_OPTIMAL_STRATEGY, CONFLICT_OPTIMAL), 1, wxEXPAND);
 	palyer1Text_ = new wxStaticText(this, wxID_ANY, wxString::Format(PLAYER1_SCORE_STUB, player1Score_));
 	controlSizer->Add(palyer1Text_, 1, wxEXPAND);
@@ -254,18 +254,17 @@ void GameFramePanel::OnControl(wxCommandEvent& e) {
 	const GameEvent buttonId = static_cast<GameEvent>(e.GetId());
 
 	std::uniform_int_distribution<int> distribution(0, 1);
-	int player2_choice = distribution(random_engine_);
+	int player2Сhoice = distribution(random_engine_);
 
-	if (buttonId == GameEvent::ID_PEACE) {
-		auto res = gameGrid_->DoGame(GameEvent::ID_PEACE, player2_choice);
-
+	if (buttonId == GameEvent::ID_NO_COOPERATE) {
+		auto res = gameGrid_->DoGame(GameEvent::ID_NO_COOPERATE, player2Сhoice);
 		player1Score_ += res.first;
 		palyer1Text_->SetLabel(wxString::Format(PLAYER1_SCORE_STUB, player1Score_));
 		player2Score_ += res.second;
 		palyer2Text_->SetLabel(wxString::Format(PLAYER2_SCORE_STUB, player2Score_));
 	}
-	else if (buttonId == GameEvent::ID_AGGRESSION) {
-		auto res = gameGrid_->DoGame(GameEvent::ID_AGGRESSION, player2_choice);
+	else if (buttonId == GameEvent::ID_COOPERATE) {
+		auto res = gameGrid_->DoGame(GameEvent::ID_COOPERATE, player2Сhoice);
 
 		player1Score_ += res.first;
 		palyer1Text_->SetLabel(wxString::Format(PLAYER1_SCORE_STUB, player1Score_));

@@ -5,8 +5,8 @@ namespace game
 
 // Game event type.
 enum GameEvent {
-	ID_PEACE = 0,
-	ID_AGGRESSION,
+	ID_NO_COOPERATE = 0,
+	ID_COOPERATE,
 	ID_OPTIMAL_STRATEGY,
 };
 
