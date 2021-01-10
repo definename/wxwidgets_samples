@@ -2,7 +2,7 @@
 #include "GameFramePanel.h"
 #include "GameTypes.h"
 
-#define PLAYER1_SCORE_STUB wxT("Игрок 1: %d")
+#define PLAYER1_SCORE_STUB wxT("Игрок 1(Вы): %d")
 #define PLAYER2_SCORE_STUB wxT("Игрок 2: %d")
 #define CONFLICT_PEACE wxT("Мир")
 #define CONFLICT_AGGRESION wxT("Агрессия")
