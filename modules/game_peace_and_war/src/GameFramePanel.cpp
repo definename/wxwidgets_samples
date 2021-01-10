@@ -25,7 +25,23 @@ public:
 		const int border = 5;
 		const int title_size = 50;
 
+		dc.SetPen(wxPen(wxColor(0, 0, 0), 1));
+		auto brush = dc.GetBrush();
+		dc.SetBrush(*wxGREEN_BRUSH);
+		wxCoord width = ((size.GetWidth() - title_size) / 2);
+		wxCoord height = ((size.GetHeight() - title_size) / 2);
+
+		// 00
+		dc.DrawRectangle(border + title_size, title_size, width - border, height);
+		// 10
+		dc.DrawRectangle(border + title_size, ((size.GetHeight() - title_size) / 2) + title_size, width - border, height - border);
+		// 01
+		dc.DrawRectangle(((size.GetWidth() - title_size) / 2) + title_size, title_size, width - border, height);
+		// 11
+		dc.DrawRectangle(((size.GetWidth() - title_size) / 2) + title_size, ((size.GetHeight() - title_size) / 2) + title_size, width - border, height - border);
+
 		dc.SetPen(wxPen(wxColor(0, 0, 0), 3));
+		dc.SetBrush(brush);
 		
 		// Horizontal text
 		dc.DrawText(CONFLICT_PEACE, title_size + border * 2, title_size / 2);
