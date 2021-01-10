@@ -2,11 +2,11 @@
 #include "GameFramePanel.h"
 #include "GameTypes.h"
 
-#define PLAYER1_SCORE_STUB wxT("Игрок 1(Вы): %d")
-#define PLAYER2_SCORE_STUB wxT("Игрок 2: %d")
-#define CONFLICT_PEACE wxT("Мир")
-#define CONFLICT_AGGRESION wxT("Агрессия")
-#define CONFLICT_OPTIMAL wxT("Оптимальная стратегия")
+#define PLAYER1_SCORE_STUB wxT("Гравець #1(Ви): %d")
+#define PLAYER2_SCORE_STUB wxT("Гравець #2: %d")
+#define COOPERATE wxT("Не співробітничати")
+#define NOT_COOPERATE wxT("Співробітничати")
+#define CONFLICT_OPTIMAL wxT("Оптимальна стратегія")
 
 namespace game
 {
@@ -16,7 +16,7 @@ class GameGrid : public wxPanel
 public:
 	GameGrid(wxPanel* parent)
 	: wxPanel(parent)
-	, strategy_{{ {0, 0}, { -1, 2 } }, { {2, -1}, {1, 1} }}
+	, strategy_{{ {-1, -1}, { -10, 0 } }, { {0, -10}, {-5, -5} }}
 	, select_("none"){
 	}
 
@@ -72,7 +72,7 @@ public:
 		dc.Clear();
 		dc.SetPen(wxPen(wxColor(0, 0, 0), 1));
 		auto brush = dc.GetBrush();
-		dc.SetBrush(*wxGREEN_BRUSH);
+		dc.SetBrush(*wxCYAN_BRUSH);
 		wxCoord width = ((size.GetWidth() - title_size) / 2);
 		wxCoord height = ((size.GetHeight() - title_size) / 2);
 
@@ -109,17 +109,17 @@ public:
 		dc.SetBrush(brush);
 
 		// Horizontal text
-		dc.DrawText(CONFLICT_PEACE, title_size + border * 2, title_size / 2);
-		dc.DrawText(CONFLICT_AGGRESION, (((size.GetWidth() - title_size) / 2) + title_size) + border, title_size / 2);
+		dc.DrawText(COOPERATE, title_size + border * 2, title_size / 2);
+		dc.DrawText(NOT_COOPERATE, (((size.GetWidth() - title_size) / 2) + title_size) + border, title_size / 2);
 
 		// Vertical text
 		dc.DrawRotatedText(
-			CONFLICT_PEACE,
+			COOPERATE wxT("(Ви)"),
 			title_size / 2,
 			(((size.GetHeight() - title_size) / 2) + title_size) - border,
 			90.0);
 		dc.DrawRotatedText(
-			CONFLICT_AGGRESION,
+			NOT_COOPERATE wxT("(Ви)"),
 			title_size / 2,
 			size.GetHeight() - border * 2,
 			90.0);
@@ -228,10 +228,17 @@ GameFramePanel::GameFramePanel(wxWindow* parent)
 	wxBoxSizer* topSizer = new wxBoxSizer(wxHORIZONTAL);
 	const int borderSize = 2;
 
+	// Game grid
+	wxBoxSizer* gameGridSizer = new wxBoxSizer(wxHORIZONTAL);
+	gameGrid_ = new GameGrid(this);
+	gameGridSizer->Add(gameGrid_, 1, wxEXPAND);
+
+	topSizer->Add(gameGridSizer, 1, wxEXPAND);
+
 	// Buttons.
 	wxBoxSizer* controlSizer = new wxBoxSizer(wxVERTICAL);
-	controlSizer->Add(new wxButton(this, GameEvent::ID_PEACE, CONFLICT_PEACE), 1, wxEXPAND);
-	controlSizer->Add(new wxButton(this, GameEvent::ID_AGGRESSION, CONFLICT_AGGRESION), 1, wxEXPAND);
+	controlSizer->Add(new wxButton(this, GameEvent::ID_PEACE, COOPERATE), 1, wxEXPAND);
+	controlSizer->Add(new wxButton(this, GameEvent::ID_AGGRESSION, NOT_COOPERATE), 1, wxEXPAND);
 	controlSizer->Add(new wxButton(this, GameEvent::ID_OPTIMAL_STRATEGY, CONFLICT_OPTIMAL), 1, wxEXPAND);
 	palyer1Text_ = new wxStaticText(this, wxID_ANY, wxString::Format(PLAYER1_SCORE_STUB, player1Score_));
 	controlSizer->Add(palyer1Text_, 1, wxEXPAND);
@@ -239,13 +246,6 @@ GameFramePanel::GameFramePanel(wxWindow* parent)
 	controlSizer->Add(palyer2Text_, 1, wxEXPAND);
 
 	topSizer->Add(controlSizer, 0, wxEXPAND | wxLEFT | wxUP | wxDOWN, borderSize);
-
-	// Game grid
-	wxBoxSizer* gameGridSizer = new wxBoxSizer(wxHORIZONTAL);
-	gameGrid_ = new GameGrid(this);
-	gameGridSizer->Add(gameGrid_, 1, wxEXPAND);
-
-	topSizer->Add(gameGridSizer, 1, wxEXPAND);
 
 	SetSizer(topSizer);
 }

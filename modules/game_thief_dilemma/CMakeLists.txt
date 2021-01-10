@@ -1,4 +1,4 @@
-project(game_peace_and_war)
+project(game_thief_dilemma)
 
 configure_file(src/res/nullapp.rc.cmake nullapp.rc @ONLY)
 
