@@ -150,7 +150,6 @@ private:
 	std::vector<int> list_values_;
 	std::vector<int> list_last_row_;
 	std::vector<int> list_last_col_;
-	int index_;
 };
 
 wxBEGIN_EVENT_TABLE(GreedyGrid, wxGrid)

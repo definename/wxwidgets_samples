@@ -6,7 +6,7 @@ namespace greedy
 {
 
 GreedyFrame::GreedyFrame()
-	: wxFrame(NULL, wxID_ANY, wxT("Greedy algorithm"), wxDefaultPosition, wxSize(550, 400), wxDEFAULT_FRAME_STYLE)
+	: wxFrame(NULL, wxID_ANY, wxT("Greedy algorithm"), wxDefaultPosition, wxSize(700, 250), wxDEFAULT_FRAME_STYLE)
 	, framePanel_(new GreedyFramePanel(this)) {
 	SetIcon(wxICON(IDI_ICON));
 	SetMinSize(GetSize());
