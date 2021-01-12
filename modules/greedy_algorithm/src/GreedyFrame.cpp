@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "GreedyFrame.h"
 #include "GreedyFramePanel.h"
+#include "GreedyTypes.h"
 
 namespace greedy
 {

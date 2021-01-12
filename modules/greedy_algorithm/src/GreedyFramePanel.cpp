@@ -10,15 +10,17 @@ public:
 	GreedyGrid(wxWindow* parent)
 		: wxGrid(parent, wxID_ANY)
 		, values_{
-			{3, 5, 4, 0, 140},
-			{2, 4, 6, 0, 200},
-			{1, 3, 5, 0, 180},
-			{3, 6, 7, 0, 220},
-			{12, 14, 16},
+			{2, 4, 5, 0, 140},
+			{1, 8, 6, 0, 280},
+			{7, 4, 5, 0, 240},
+			{4, 6, 7, 0, 360},
+			{10, 14, 12},
 	}
-	, lables_{ wxT("Фрезерне"), wxT("Токарне"), wxT("Зварювальне"), wxT("Шліфувальне"), wxT("Прибуток") }
+	, lables_{ wxT("Борошно-змішувальне"), wxT("Дозаторне"), wxT("Тістоформуюче"), wxT("Хлібопекарське"), wxT("Прибуток") }
 	{
 		CreateGrid(5, 5);
+		SetLabelBackgroundColour(wxColour(255, 153, 255));
+		wxColour label_color = wxColour(255, 255, 102);
 
 		int sum_last_col = 0;
 		for (int i = 0; i < values_.size() - 1; ++i) {
@@ -32,12 +34,12 @@ public:
 		values_[values_.size() - 1].push_back(sum_last_col - sum_last_row);
 
 		for (int i = 0; i < GetNumberCols(); ++i) {
-			SetCellBackgroundColour(GetNumberRows() - 1, i, wxColour(220, 220, 220));
+			SetCellBackgroundColour(GetNumberRows() - 1, i, label_color);
 		}
 		SetColLabelValue(GetNumberCols() - 1, wxT("Загальний фонд робочого часу обладнання"));
 		for (int i = 0; i < GetNumberRows(); ++i) {
 			SetRowLabelValue(i, lables_.at(i));
-			SetCellBackgroundColour(i, GetNumberCols() - 1, wxColour(220, 220, 220));
+			SetCellBackgroundColour(i, GetNumberCols() - 1, label_color);
 		}
 
 		for (int i = 0; i < values_.size(); ++i) {
@@ -64,6 +66,7 @@ public:
 			}
 		}
 
+		SetRowLabelSize(150);
 		AutoSizeColumns(true);
 		AutoSizeRows(true);
 		Fit();
@@ -85,6 +88,7 @@ public:
 	}
 
 	void DoNext() {
+		wxColour select_color = wxColour(0, 255, 204);
 		static bool released = false;
 		if (list_values_.empty()) {
 			if (!released) {
@@ -93,7 +97,7 @@ public:
 						int val = values_[i][j];
 						if (val == 0) {
 							int col_value = list_last_col_[i];
-							SetCellBackgroundColour(i, j, wxColour(0, 255, 0));
+							SetCellBackgroundColour(i, j, select_color);
 							SetCellValue(i, j, wxString::Format("%d(%d)", col_value, val));
 						}
 					}
@@ -117,7 +121,7 @@ public:
 				if (val == v) {
 					int row_value = list_last_row_[j];
 					int col_value = list_last_col_[i];
-					SetCellBackgroundColour(i, j, wxColour(0, 255, 0));
+					SetCellBackgroundColour(i, j, select_color);
 					if (row_value > col_value) {
 						SetCellValue(i, j, wxString::Format("%d(%d)", col_value, val));
 						list_last_col_[i] = 0;
@@ -163,20 +167,19 @@ wxEND_EVENT_TABLE()
 GreedyFramePanel::GreedyFramePanel(wxWindow* parent)
 	: wxPanel(parent, wxID_ANY, wxDefaultPosition, parent->GetSize())
 {
-
 	wxBoxSizer* topSizer = new wxBoxSizer(wxHORIZONTAL);
 	const int borderSize = 2;
+
+	// Buttons.
+	wxBoxSizer* controlSizer = new wxBoxSizer(wxVERTICAL);
+	controlSizer->Add(new wxButton(this, GreedyEvent::ID_NEXT, wxT("Next")), 1, wxEXPAND);
+	topSizer->Add(controlSizer, 0, wxSTRETCH_NOT, borderSize);
 
 	// Grid.
 	wxBoxSizer* gridSizer = new wxBoxSizer(wxHORIZONTAL);
 	grid_ = new GreedyGrid(this);
 	gridSizer->Add(grid_, 1, wxEXPAND);
 	topSizer->Add(gridSizer, 1, wxEXPAND);
-
-	// Buttons.
-	wxBoxSizer* controlSizer = new wxBoxSizer(wxVERTICAL);
-	controlSizer->Add(new wxButton(this, GreedyEvent::ID_NEXT, wxT("Next")), 1, wxEXPAND);
-	topSizer->Add(controlSizer, 0, wxSTRETCH_NOT, borderSize);
 
 	SetSizer(topSizer);
 }
