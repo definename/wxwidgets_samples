@@ -20,7 +20,7 @@ private:
 	void OnControl(wxCommandEvent& e);
 
 private:
-	wxGrid* grid_;
+	GreedyGrid* grid_;
 
 	// Public interface.
 public:
