@@ -1,10 +1,10 @@
 #pragma once
 
-namespace zoo
+namespace baby
 {
 
-// Zoo db file path.
-const wxFileName zoo_db_path(wxT("zoo_db.dat"));
+// Database file path.
+const wxFileName db_path(wxT("zoo_db.dat"));
 
 // Serialization interface.
 template <typename TOArch, typename TSource, typename TTarget>
@@ -20,4 +20,4 @@ void DeserializeFrom(TSource& source, TTarget& target) {
 	ia >> target;
 }
 
-}; // namespace zoo
+};

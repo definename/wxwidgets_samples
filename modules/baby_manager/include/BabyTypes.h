@@ -1,10 +1,10 @@
 #pragma once
 
-namespace zoo
+namespace baby
 {
 
-// Zoo event type.
-enum ZooEvent {
+// Event type.
+enum BabyEvent {
 	ID_ADD = 0,
 	ID_UPDATE,
 	ID_REMOVE,
@@ -12,7 +12,7 @@ enum ZooEvent {
 	ID_ABOUT,
 };
 
-struct ZooData
+struct BabyData
 {
 	// Friend class.
 	friend boost::serialization::access;
@@ -28,9 +28,9 @@ struct ZooData
 
 	// Construction and destruction.
 public:
-	ZooData() = default;
+	BabyData() = default;
 	// Constructor.
-	ZooData(std::wstring name, std::wstring gender, std::wstring age, std::wstring cell)
+	BabyData(std::wstring name, std::wstring gender, std::wstring age, std::wstring cell)
 		: name_(name)
 		, gender_(gender)
 		, age_(age)
@@ -49,9 +49,9 @@ public:
 	std::wstring cell_;
 };
 
-// Zoo data pointer type.
-using ZooDataPtr = std::shared_ptr<ZooData>;
-// Zoo hash type.
-using ZooHash = std::unordered_map<int, ZooDataPtr>;
+// Baby data pointer type.
+using BabyDataPtr = std::shared_ptr<BabyData>;
+// Baby hash type.
+using BabyHash = std::unordered_map<int, BabyDataPtr>;
 
-}; // namespace zoo
+};

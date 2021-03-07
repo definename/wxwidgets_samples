@@ -1,23 +1,23 @@
 #pragma once
 
-#include "ZooTypes.h"
+#include "BabyTypes.h"
 
-namespace zoo
+namespace baby
 {
 
-class ZooList: public wxListCtrl
+class BabyList: public wxListCtrl
 {
 	// Construction and destruction.
 public:
 	// Constructor.
-	ZooList(wxWindow* parent);
+	BabyList(wxWindow* parent);
 	// Destructor.
-	~ZooList();
+	~BabyList();
 
 	// Public types.
 public:
-	// Zoo data id.
-	enum ZooDataId {
+	// Data id.
+	enum BabyDataId {
 		ID_NAME = 0,
 		ID_GENDER,
 		ID_AGE,
@@ -26,18 +26,18 @@ public:
 	// Public interface.
 public:
 	// Add.
-	bool AddItem(ZooDataPtr zooData);
+	bool AddItem(BabyDataPtr zooData);
 	// Update item by index.
-	bool ZooList::UpdateItem(const long& index, ZooDataPtr zooDataNew);
+	bool BabyList::UpdateItem(const long& index, BabyDataPtr zooDataNew);
 	// Remove item by index.
-	bool ZooList::RemoveItem(const long& index);
+	bool BabyList::RemoveItem(const long& index);
 	// Get item by index.
-	bool ZooList::GetItem(const int index, ZooDataPtr& zooData);
+	bool BabyList::GetItem(const int index, BabyDataPtr& zooData);
 
 	// Update view.
 	void Update();
 	// Get index of selected item.
-	bool ZooList::GetSelectedIndex(long& index);
+	bool BabyList::GetSelectedIndex(long& index);
 
 	// Private interface.
 private:
@@ -51,9 +51,9 @@ private:
 	// Private members.
 private:
 	// Hash map.
-	ZooHash zooHash_;
+	BabyHash hash_;
 	// Selected index.
 	long selectIndex_;
 };
 
-}; // namespace zoo
+};

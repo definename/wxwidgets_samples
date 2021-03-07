@@ -1,24 +1,24 @@
 #pragma once
 
-namespace zoo
+namespace baby
 {
 
 // Forward declaration.
-class ZooList;
+class BabyList;
 
-class ZooFramePanel : public wxPanel
+class BabyFramePanel : public wxPanel
 {
 	// Construction and destruction.
 public:
 	// Constructor.
-	ZooFramePanel(wxWindow* parent);
+	BabyFramePanel(wxWindow* parent);
 	// Destructor.
-	~ZooFramePanel() = default;
+	~BabyFramePanel() = default;
 
 	// Public types.
 public:
 	// Frame pointer type.
-	using ZooListPtr = ZooList*;
+	using BabyListPtr = BabyList*;
 
 	// Public interface.
 public:
@@ -30,7 +30,7 @@ public:
 	// Private members.
 private:
 	// Gui list control pointer.
-	ZooListPtr zooList_;
+	BabyListPtr list_;
 };
 
-}; // namespace zoo
+};

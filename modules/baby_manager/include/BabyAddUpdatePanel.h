@@ -1,16 +1,16 @@
 #pragma once
 
-namespace zoo
+namespace baby
 {
 
-class ZooAddUpdatePanel: public wxPanel
+class BabyAddUpdatePanel: public wxPanel
 {
 	// Construction and destruction.
 public:
 	// Constructor.
-	ZooAddUpdatePanel(wxWindow* parent);
+	BabyAddUpdatePanel(wxWindow* parent);
 	// Destructor.
-	~ZooAddUpdatePanel() = default;
+	~BabyAddUpdatePanel() = default;
 
 	// Public types.
 public:
@@ -69,4 +69,4 @@ private:
 	wxTextCtrl* cell_;
 };
 
-}; // namespace zoo
+};

@@ -1,24 +1,24 @@
 #pragma once
 
-namespace zoo
+namespace baby
 {
 
 //! Forward declaration.
-class ZooFrame;
+class BabyFrame;
 
-class ZooApp : public wxApp
+class BabyApp : public wxApp
 {
 	// Construction and destruction.
 public:
 	// Constructor.
-	ZooApp() = default;
+	BabyApp() = default;
 	// Destructor.
-	~ZooApp() = default;
+	~BabyApp() = default;
 
 	// Public types.
 public:
 	// Main frame pointer type.
-	using ZooFramePtr = ZooFrame*;
+	using BabyFramePtr = BabyFrame*;
 
 	//
 	// Public interface.
@@ -34,9 +34,9 @@ public:
 	//
 private:
 	// Zoo frame pointer.
-	ZooFramePtr zooFrame_;
+	BabyFramePtr frame_;
 };
 
-wxDECLARE_APP(ZooApp);
+wxDECLARE_APP(BabyApp);
 
-}; // namespace zoo
+};

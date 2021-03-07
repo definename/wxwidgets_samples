@@ -1,10 +1,10 @@
 #include "pch.h"
-#include "ZooAddUpdatePanel.h"
+#include "BabyAddUpdatePanel.h"
 
-namespace zoo
+namespace baby
 {
 
-ZooAddUpdatePanel::ZooAddUpdatePanel(wxWindow* parent)
+BabyAddUpdatePanel::BabyAddUpdatePanel(wxWindow* parent)
 	: wxPanel(parent, wxID_ANY, wxDefaultPosition, parent->GetSize()) {
 	const int borderSize = 2;
 	const wxSize textSize = wxSize(40, wxDefaultPosition.y);
@@ -55,4 +55,4 @@ ZooAddUpdatePanel::ZooAddUpdatePanel(wxWindow* parent)
 	SetSizerAndFit(topSizer);
 }
 
-} // namespace zoo
+}

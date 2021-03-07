@@ -3,22 +3,22 @@ project(baby_manager)
 configure_file(src/res/nullapp.rc.cmake nullapp.rc @ONLY)
 
 set(PROJECT_HEADERS
-	include/ZooApp.h
-	include/ZooAddUpdateDialog.h
-	include/ZooAddUpdatePanel.h
-	include/ZooFrame.h
-	include/ZooFramePanel.h
-	include/ZooList.h
-	include/ZooTypes.h
-	include/ZooUtil.h
+	include/BabyApp.h
+	include/BabyAddUpdateDialog.h
+	include/BabyAddUpdatePanel.h
+	include/BabyFrame.h
+	include/BabyFramePanel.h
+	include/BabyList.h
+	include/BabyTypes.h
+	include/BabyUtil.h
 	)
 set(PROJECT_SOURCES
-	src/ZooApp.cpp
-	src/ZooAddUpdateDialog.cpp
-	src/ZooAddUpdatePanel.cpp
-	src/ZooFrame.cpp
-	src/ZooFramePanel.cpp
-	src/ZooList.cpp
+	src/BabyApp.cpp
+	src/BabyAddUpdateDialog.cpp
+	src/BabyAddUpdatePanel.cpp
+	src/BabyFrame.cpp
+	src/BabyFramePanel.cpp
+	src/BabyList.cpp
 	)
 set(PROJECT_RESOURCES
 	src/res/nullapp.ico
