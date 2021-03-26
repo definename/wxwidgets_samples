@@ -43,9 +43,7 @@ void BabyFrame::OnMenuEvent(wxCommandEvent& e)
 {
 	const BabyEvent menuId = static_cast<BabyEvent>(e.GetId());
 	if (menuId == BabyEvent::ID_ABOUT) {
-		wxString msg(wxT(
-			"Baby manager\nCreated by Alina Kolomiitseva\nKharkiv 2020\nVersion 1.0.0.1"));
-		wxMessageBox(msg, wxT("About"), wxOK | wxCENTRE, this);
+		wxMessageBox(BABY_MGR_ABOUT, wxT("About"), wxOK | wxCENTRE, this);
 	}
 	else if (menuId == BabyEvent::ID_EXIT) {
 		Close();

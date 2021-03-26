@@ -3,6 +3,12 @@
 namespace baby
 {
 
+#define BABY_MGR_ABOUT  wxT(			\
+	"Baby manager\n"					\
+	"Created by Alina Kolomiitseva\n"	\
+	"Kharkiv 2021\n"					\
+	"Version 1.0.0.1")					\
+
 #define BABY_NAME wxT("Name")
 #define BABY_GENDER wxT("Gender")
 #define BABY_BLOOD wxT("Blood type")
@@ -40,8 +46,8 @@ struct BabyData
 	void serialize(Archive& ar, const unsigned int version) {
 		ar & name_;
 		ar & gender_;
-		ar & age_;
-		ar & cell_;
+		ar & blood_;
+		ar & apgar_;
 	}
 
 
@@ -49,23 +55,23 @@ struct BabyData
 public:
 	BabyData() = default;
 	// Constructor.
-	BabyData(std::wstring name, std::wstring gender, std::wstring age, std::wstring cell)
+	BabyData(std::wstring name, std::wstring gender, std::wstring blood, std::wstring apgar)
 		: name_(name)
 		, gender_(gender)
-		, age_(age)
-		, cell_(cell) {
+		, blood_(blood)
+		, apgar_(apgar) {
 	}
 
 	// Public types.
 public:
-	// Animal name.
+	// Name.
 	std::wstring name_;
-	// Animal gender.
-	std::wstring  gender_;
-	// Animal age.
-	std::wstring age_;
-	// Animal cell.
-	std::wstring cell_;
+	// Gender.
+	std::wstring gender_;
+	// Blood.
+	std::wstring blood_;
+	// Apgar.
+	std::wstring apgar_;
 };
 
 // Baby data pointer type.

@@ -64,14 +64,14 @@ bool BabyList::AddItem(BabyDataPtr zooData) {
 	return ret.second;
 }
 
-bool BabyList::UpdateItem(const long& index, BabyDataPtr zooDataNew) {
+bool BabyList::UpdateItem(const long& index, BabyDataPtr dataNew) {
 	bool ret = false;
-	BabyDataPtr zooDataOld;
-	if (GetItem(index, zooDataOld)) {
-		zooDataOld->name_ = zooDataNew->name_;
-		zooDataOld->gender_ = zooDataNew->gender_;
-		zooDataOld->age_ = zooDataNew->age_;
-		zooDataOld->cell_ = zooDataNew->cell_;
+	BabyDataPtr dataOld;
+	if (GetItem(index, dataOld)) {
+		dataOld->name_ = dataNew->name_;
+		dataOld->gender_ = dataNew->gender_;
+		dataOld->blood_ = dataNew->blood_;
+		dataOld->apgar_ = dataNew->apgar_;
 		RefreshItem(index);
 		ret = true;
 	}
@@ -92,11 +92,11 @@ bool BabyList::RemoveItem(const long& index) {
 	return ret;
 }
 
-bool BabyList::GetItem(const int index, BabyDataPtr& zooData) {
+bool BabyList::GetItem(const int index, BabyDataPtr& data) {
 	bool ret = false;
 	BabyHash::iterator it = hash_.find(index);
 	if (it != hash_.end()) {
-		zooData = it->second;
+		data = it->second;
 		ret = true;
 	}
 	return ret;
@@ -116,10 +116,10 @@ wxString BabyList::OnGetItemText(long item, long column) const {
 			return it->second->gender_;
 		}
 		else if (column == BabyDataId::ID_BLOOD_TYPE) {
-			return it->second->age_;
+			return it->second->blood_;
 		}
 		else if (column == BabyDataId::ID_APGAR_SCORE) {
-			return it->second->cell_;
+			return it->second->apgar_;
 		}
 	}
 	return wxT("Unknown");

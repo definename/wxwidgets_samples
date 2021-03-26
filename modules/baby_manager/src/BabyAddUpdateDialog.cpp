@@ -6,25 +6,25 @@
 namespace baby
 {
 
-BabyAddUpdateDialog::BabyAddUpdateDialog(wxWindow* parent, const wxString& title, const BabyDataPtr zooData /*= nullptr*/)
+BabyAddUpdateDialog::BabyAddUpdateDialog(wxWindow* parent, const wxString& title, const BabyDataPtr data /*= nullptr*/)
 	: wxDialog(parent, wxID_ANY, title, wxDefaultPosition, wxSize(400, 180))
 	, addUpdatePanel_(new BabyAddUpdatePanel(this)) {
 
-	if (zooData) {
-		addUpdatePanel_->SetName(zooData->name_);
-		addUpdatePanel_->SetGender(zooData->gender_);
-		addUpdatePanel_->SetAge(zooData->age_);
-		addUpdatePanel_->SetCell(zooData->cell_);
+	if (data) {
+		addUpdatePanel_->SetName(data->name_);
+		addUpdatePanel_->SetGender(data->gender_);
+		addUpdatePanel_->SetBlood(data->blood_);
+		addUpdatePanel_->SetApgar(data->apgar_);
 	}
 }
 
 BabyDataPtr BabyAddUpdateDialog::GetZooData() const {
-	BabyDataPtr zooData = std::make_shared<BabyData>(
+	BabyDataPtr data = std::make_shared<BabyData>(
 		addUpdatePanel_->GetName().ToStdWstring(),
 		addUpdatePanel_->GetGender().ToStdWstring(),
-		addUpdatePanel_->GetAge().ToStdWstring(),
-		addUpdatePanel_->GetCell().ToStdWstring());
-	return zooData;
+		addUpdatePanel_->GetBlood().ToStdWstring(),
+		addUpdatePanel_->GetApgar().ToStdWstring());
+	return data;
 }
 
 }

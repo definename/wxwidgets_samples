@@ -13,7 +13,7 @@ class BabyAddUpdateDialog: public wxDialog
 	// Construction and destruction.
 public:
 	// Constructor.
-	BabyAddUpdateDialog(wxWindow* parent, const wxString& title, const BabyDataPtr zooData = nullptr);
+	BabyAddUpdateDialog(wxWindow* parent, const wxString& title, const BabyDataPtr data = nullptr);
 	// Destructor.
 	~BabyAddUpdateDialog() = default;
 

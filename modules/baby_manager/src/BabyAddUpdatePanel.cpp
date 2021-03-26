@@ -33,16 +33,16 @@ BabyAddUpdatePanel::BabyAddUpdatePanel(wxWindow* parent)
 	// blood.
 	wxBoxSizer* bloodSizer = new wxBoxSizer(wxHORIZONTAL);
 	bloodSizer->Add(new wxStaticText(this, wxID_ANY, BABY_BLOOD_COLON, textPos, textSize, wxALIGN_RIGHT), 0, textFlag, borderSize);
-	age_ = new wxTextCtrl(this, BabyDataId::ID_BLOOD_TYPE);
-	bloodSizer->Add(age_, 1, wxEXPAND | wxUP | wxRIGHT | wxLEFT, borderSize);
+	blood_ = new wxTextCtrl(this, BabyDataId::ID_BLOOD_TYPE);
+	bloodSizer->Add(blood_, 1, wxEXPAND | wxUP | wxRIGHT | wxLEFT, borderSize);
 
 	topSizer->Add(bloodSizer, 1, wxEXPAND);
 
 	// Apgar.
 	wxBoxSizer* apgarSizer = new wxBoxSizer(wxHORIZONTAL);
 	apgarSizer->Add(new wxStaticText(this, wxID_ANY, BABY_APGAR_COLON, textPos, textSize, wxALIGN_RIGHT), 0, textFlag, borderSize);
-	cell_ = new wxTextCtrl(this, BabyDataId::ID_APGAR_SCORE);
-	apgarSizer->Add(cell_, 1, wxEXPAND | wxUP | wxRIGHT | wxLEFT, borderSize);
+	apgar_ = new wxTextCtrl(this, BabyDataId::ID_APGAR_SCORE);
+	apgarSizer->Add(apgar_, 1, wxEXPAND | wxUP | wxRIGHT | wxLEFT, borderSize);
 
 	topSizer->Add(apgarSizer, 1, wxEXPAND);
 

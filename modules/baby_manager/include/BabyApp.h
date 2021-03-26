@@ -33,7 +33,7 @@ public:
 	// Private date members.
 	//
 private:
-	// Zoo frame pointer.
+	// Frame pointer.
 	BabyFramePtr frame_;
 };
 

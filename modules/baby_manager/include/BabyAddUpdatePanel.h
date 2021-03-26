@@ -22,13 +22,13 @@ public:
 	void SetGender(const wxString& gender) {
 		gender_->ChangeValue(gender);
 	}
-	// Set age.
-	void SetAge(const wxString& age) {
-		age_->ChangeValue(age);
+	// Set blood.
+	void SetBlood(const wxString& blood) {
+		blood_->ChangeValue(blood);
 	}
-	// Set cell.
-	void SetCell(const wxString& cell) {
-		cell_->ChangeValue(cell);
+	// Set apgar.
+	void SetApgar(const wxString& apgar) {
+		apgar_->ChangeValue(apgar);
 	}
 	// Get name.
 	wxString GetName() const {
@@ -38,25 +38,25 @@ public:
 	wxString GetGender() const {
 		return gender_->GetValue();
 	}
-	// Get age.
-	wxString GetAge() const {
-		return age_->GetValue();
+	// Get blood.
+	wxString GetBlood() const {
+		return blood_->GetValue();
 	}
-	// Get cell.
-	wxString GetCell() const {
-		return cell_->GetValue();
+	// Get apgar.
+	wxString GetApgar() const {
+		return apgar_->GetValue();
 	}
 
 	// Private members.
 private:
-	// Animal name.
+	// Name.
 	wxTextCtrl* name_;
-	// Animal gender.
+	// Gender.
 	wxTextCtrl* gender_;
-	// Animal age.
-	wxTextCtrl* age_;
-	// Animal cell.
-	wxTextCtrl* cell_;
+	// Blood.
+	wxTextCtrl* blood_;
+	// Apgar.
+	wxTextCtrl* apgar_;
 };
 
 };

@@ -38,8 +38,8 @@ void BabyFramePanel::OnControl(wxCommandEvent& e) {
 	if (buttonId == BabyEvent::ID_ADD) {
 		BabyAddUpdateDialog* addDialog = new BabyAddUpdateDialog(this, wxT("Add"));
 		if (addDialog->ShowModal() == wxID_OK) {
-			BabyDataPtr zooData = addDialog->GetZooData();
-			if (!list_->AddItem(zooData)) {
+			BabyDataPtr data = addDialog->GetZooData();
+			if (!list_->AddItem(data)) {
 				wxMessageBox(wxT("Failed to add item"), wxT("Add item"), wxICON_WARNING, this);
 			}
 		}
@@ -52,8 +52,8 @@ void BabyFramePanel::OnControl(wxCommandEvent& e) {
 			if (list_->GetItem(index, dataOld)) {
 				BabyAddUpdateDialog* updateDialog = new BabyAddUpdateDialog(this, wxT("Update"), dataOld);
 				if (updateDialog->ShowModal() == wxID_OK) {
-					BabyDataPtr zooData = updateDialog->GetZooData();
-					if (!list_->UpdateItem(index, zooData)) {
+					BabyDataPtr data = updateDialog->GetZooData();
+					if (!list_->UpdateItem(index, data)) {
 						wxMessageBox(wxT("Failed to update item"), wxT("Update item"), wxICON_WARNING, this);
 					}
 				}
