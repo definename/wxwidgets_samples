@@ -14,15 +14,6 @@ public:
 	// Destructor.
 	~BabyList();
 
-	// Public types.
-public:
-	// Data id.
-	enum BabyDataId {
-		ID_NAME = 0,
-		ID_GENDER,
-		ID_AGE,
-		ID_CELL
-	};
 	// Public interface.
 public:
 	// Add.

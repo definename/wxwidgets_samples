@@ -17,27 +17,27 @@ BabyList::BabyList(wxWindow* parent)
 
 	wxListItem name;
 	name.SetId(BabyDataId::ID_NAME);
-	name.SetText(wxT("Name"));
+	name.SetText(BABY_NAME);
 	name.SetWidth(100);
 	InsertColumn(name.GetId(), name);
 
 	wxListItem gender;
 	gender.SetId(BabyDataId::ID_GENDER);
-	gender.SetText(wxT("Gender"));
+	gender.SetText(BABY_GENDER);
 	gender.SetWidth(100);
 	InsertColumn(gender.GetId(), gender);
 
-	wxListItem age;
-	age.SetId(BabyDataId::ID_AGE);
-	age.SetText(wxT("Age"));
-	age.SetWidth(100);
-	InsertColumn(age.GetId(), age);
+	wxListItem blood;
+	blood.SetId(BabyDataId::ID_BLOOD_TYPE);
+	blood.SetText(BABY_BLOOD);
+	blood.SetWidth(100);
+	InsertColumn(blood.GetId(), blood);
 
-	wxListItem cell;
-	cell.SetId(BabyDataId::ID_CELL);
-	cell.SetText(wxT("Cell"));
-	cell.SetWidth(100);
-	InsertColumn(cell.GetId(), cell);
+	wxListItem apgar;
+	apgar.SetId(BabyDataId::ID_APGAR_SCORE);
+	apgar.SetText(BABY_APGAR);
+	apgar.SetWidth(100);
+	InsertColumn(apgar.GetId(), apgar);
 
 	// De-serialize zoo data container.
 	if (db_path.FileExists()) {
@@ -115,10 +115,10 @@ wxString BabyList::OnGetItemText(long item, long column) const {
 		else if (column == BabyDataId::ID_GENDER) {
 			return it->second->gender_;
 		}
-		else if (column == BabyDataId::ID_AGE) {
+		else if (column == BabyDataId::ID_BLOOD_TYPE) {
 			return it->second->age_;
 		}
-		else if (column == BabyDataId::ID_CELL) {
+		else if (column == BabyDataId::ID_APGAR_SCORE) {
 			return it->second->cell_;
 		}
 	}

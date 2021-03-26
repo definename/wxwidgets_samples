@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "BabyAddUpdatePanel.h"
+#include "BabyTypes.h"
 
 namespace baby
 {
@@ -7,7 +8,7 @@ namespace baby
 BabyAddUpdatePanel::BabyAddUpdatePanel(wxWindow* parent)
 	: wxPanel(parent, wxID_ANY, wxDefaultPosition, parent->GetSize()) {
 	const int borderSize = 2;
-	const wxSize textSize = wxSize(40, wxDefaultPosition.y);
+	const wxSize textSize = wxSize(80, wxDefaultPosition.y);
 	const wxPoint textPos = wxDefaultPosition;
 	long textFlag = wxALIGN_CENTER_VERTICAL | wxUP | wxRIGHT | wxLEFT;
 
@@ -15,35 +16,35 @@ BabyAddUpdatePanel::BabyAddUpdatePanel(wxWindow* parent)
 
 	// Name.
 	wxBoxSizer* nameSizer = new wxBoxSizer(wxHORIZONTAL);
-	nameSizer->Add(new wxStaticText(this, wxID_ANY, wxT("Name:"), textPos, textSize, wxALIGN_RIGHT), 0, textFlag, borderSize);
-	name_ = new wxTextCtrl(this, CommandId::ID_NAME);
+	nameSizer->Add(new wxStaticText(this, wxID_ANY, BABY_NAME_COLON, textPos, textSize, wxALIGN_RIGHT), 0, textFlag, borderSize);
+	name_ = new wxTextCtrl(this, BabyDataId::ID_NAME);
 	nameSizer->Add(name_, 1, wxEXPAND | wxUP | wxRIGHT | wxLEFT, borderSize);
 
 	topSizer->Add(nameSizer, 1, wxEXPAND);
 
 	// Gender.
 	wxBoxSizer* genderSizer = new wxBoxSizer(wxHORIZONTAL);
-	genderSizer->Add(new wxStaticText(this, wxID_ANY, wxT("Gender:"), textPos, textSize, wxALIGN_RIGHT), 0, textFlag, borderSize);
-	gender_ = new wxTextCtrl(this, CommandId::ID_GENDER);
+	genderSizer->Add(new wxStaticText(this, wxID_ANY, BABY_GENDER_COLON, textPos, textSize, wxALIGN_RIGHT), 0, textFlag, borderSize);
+	gender_ = new wxTextCtrl(this, BabyDataId::ID_GENDER);
 	genderSizer->Add(gender_, 1, wxEXPAND | wxUP | wxRIGHT | wxLEFT, borderSize);
 
 	topSizer->Add(genderSizer, 1, wxEXPAND);
 
-	// Age.
-	wxBoxSizer* ageSizer = new wxBoxSizer(wxHORIZONTAL);
-	ageSizer->Add(new wxStaticText(this, wxID_ANY, wxT("Age:"), textPos, textSize, wxALIGN_RIGHT), 0, textFlag, borderSize);
-	age_ = new wxTextCtrl(this, CommandId::ID_AGE);
-	ageSizer->Add(age_, 1, wxEXPAND | wxUP | wxRIGHT | wxLEFT, borderSize);
+	// blood.
+	wxBoxSizer* bloodSizer = new wxBoxSizer(wxHORIZONTAL);
+	bloodSizer->Add(new wxStaticText(this, wxID_ANY, BABY_BLOOD_COLON, textPos, textSize, wxALIGN_RIGHT), 0, textFlag, borderSize);
+	age_ = new wxTextCtrl(this, BabyDataId::ID_BLOOD_TYPE);
+	bloodSizer->Add(age_, 1, wxEXPAND | wxUP | wxRIGHT | wxLEFT, borderSize);
 
-	topSizer->Add(ageSizer, 1, wxEXPAND);
+	topSizer->Add(bloodSizer, 1, wxEXPAND);
 
-	// Cell.
-	wxBoxSizer* cellSizer = new wxBoxSizer(wxHORIZONTAL);
-	cellSizer->Add(new wxStaticText(this, wxID_ANY, wxT("Cell:"), textPos, textSize, wxALIGN_RIGHT), 0, textFlag, borderSize);
-	cell_ = new wxTextCtrl(this, CommandId::ID_CELL);
-	cellSizer->Add(cell_, 1, wxEXPAND | wxUP | wxRIGHT | wxLEFT, borderSize);
+	// Apgar.
+	wxBoxSizer* apgarSizer = new wxBoxSizer(wxHORIZONTAL);
+	apgarSizer->Add(new wxStaticText(this, wxID_ANY, BABY_APGAR_COLON, textPos, textSize, wxALIGN_RIGHT), 0, textFlag, borderSize);
+	cell_ = new wxTextCtrl(this, BabyDataId::ID_APGAR_SCORE);
+	apgarSizer->Add(cell_, 1, wxEXPAND | wxUP | wxRIGHT | wxLEFT, borderSize);
 
-	topSizer->Add(cellSizer, 1, wxEXPAND);
+	topSizer->Add(apgarSizer, 1, wxEXPAND);
 
 	// Control buttons.
 	wxBoxSizer* controlSizer = new wxBoxSizer(wxHORIZONTAL);

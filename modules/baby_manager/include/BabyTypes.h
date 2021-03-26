@@ -3,6 +3,25 @@
 namespace baby
 {
 
+#define BABY_NAME wxT("Name")
+#define BABY_GENDER wxT("Gender")
+#define BABY_BLOOD wxT("Blood type")
+#define BABY_APGAR wxT("Apgar score")
+
+#define BABY_NAME_COLON BABY_NAME wxT(":")
+#define BABY_GENDER_COLON BABY_GENDER wxT(":")
+#define BABY_BLOOD_COLON BABY_BLOOD wxT(":")
+#define BABY_APGAR_COLON BABY_APGAR wxT(":")
+
+
+// Data id.
+enum BabyDataId {
+	ID_NAME = 0,
+	ID_GENDER,
+	ID_BLOOD_TYPE,
+	ID_APGAR_SCORE
+};
+
 // Event type.
 enum BabyEvent {
 	ID_ADD = 0,

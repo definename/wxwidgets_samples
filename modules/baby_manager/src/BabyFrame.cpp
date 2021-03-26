@@ -21,7 +21,7 @@ BabyFrame::BabyFrame()
 	menuAnimal->Append(BabyEvent::ID_UPDATE, wxT("Update"));
 	menuAnimal->Append(BabyEvent::ID_REMOVE, wxT("Remove"));
 
-	menuFile->AppendSubMenu(menuAnimal, wxT("Animal"));
+	menuFile->AppendSubMenu(menuAnimal, wxT("Baby"));
 
 	menuFile->AppendSeparator();
 	menuFile->Append(BabyEvent::ID_EXIT, wxT("&Exit"));

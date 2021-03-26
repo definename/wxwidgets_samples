@@ -48,9 +48,9 @@ void BabyFramePanel::OnControl(wxCommandEvent& e) {
 	else if (buttonId == BabyEvent::ID_UPDATE) {
 		long index;
 		if (list_->GetSelectedIndex(index)) {
-			BabyDataPtr zooDataOld;
-			if (list_->GetItem(index, zooDataOld)) {
-				BabyAddUpdateDialog* updateDialog = new BabyAddUpdateDialog(this, wxT("Update"), zooDataOld);
+			BabyDataPtr dataOld;
+			if (list_->GetItem(index, dataOld)) {
+				BabyAddUpdateDialog* updateDialog = new BabyAddUpdateDialog(this, wxT("Update"), dataOld);
 				if (updateDialog->ShowModal() == wxID_OK) {
 					BabyDataPtr zooData = updateDialog->GetZooData();
 					if (!list_->UpdateItem(index, zooData)) {

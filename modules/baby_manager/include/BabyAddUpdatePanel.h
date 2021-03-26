@@ -12,16 +12,6 @@ public:
 	// Destructor.
 	~BabyAddUpdatePanel() = default;
 
-	// Public types.
-public:
-	// Command id type.
-	enum CommandId {
-		ID_NAME = 0,
-		ID_GENDER,
-		ID_AGE,
-		ID_CELL
-	};
-
 	// Public interface.
 public:
 	// Set name.

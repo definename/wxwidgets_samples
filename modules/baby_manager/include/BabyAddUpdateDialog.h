@@ -15,7 +15,7 @@ public:
 	// Constructor.
 	BabyAddUpdateDialog(wxWindow* parent, const wxString& title, const BabyDataPtr zooData = nullptr);
 	// Destructor.
-	~BabyAddUpdateDialog();
+	~BabyAddUpdateDialog() = default;
 
 	// Public interface.
 public:

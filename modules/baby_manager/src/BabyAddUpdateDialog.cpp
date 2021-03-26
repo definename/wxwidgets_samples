@@ -18,10 +18,6 @@ BabyAddUpdateDialog::BabyAddUpdateDialog(wxWindow* parent, const wxString& title
 	}
 }
 
-BabyAddUpdateDialog::~BabyAddUpdateDialog() {
-
-}
-
 BabyDataPtr BabyAddUpdateDialog::GetZooData() const {
 	BabyDataPtr zooData = std::make_shared<BabyData>(
 		addUpdatePanel_->GetName().ToStdWstring(),
