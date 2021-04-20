@@ -20,7 +20,7 @@ public:
 	// Public interface.
 public:
 	// Get data.
-	BabyDataPtr GetZooData() const;
+	BabyDataPtr GetBabyData() const;
 
 	// Public types.
 public:

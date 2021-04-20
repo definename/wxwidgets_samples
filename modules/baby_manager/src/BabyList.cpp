@@ -59,36 +59,32 @@ BabyList::~BabyList() {
 	hash_.swap(BabyHash());
 }
 
-void BabyList::AddItem(BabyDataPtr zooData) {
-	hash_.push_back(zooData);
-	Update();
+void BabyList::AddItem(BabyDataPtr data) {
+	if (data) {
+		hash_.push_back(data);
+		Update();
+	}
 }
 
-bool BabyList::UpdateItem(const long& index, BabyDataPtr dataNew) {
-	bool ret = false;
+void BabyList::UpdateItem(const long& index, BabyDataPtr dataNew) {
 	BabyDataPtr dataOld;
-	if (GetItem(index, dataOld)) {
+	if (dataNew && GetItem(index, dataOld)) {
 		dataOld->name_ = dataNew->name_;
 		dataOld->gender_ = dataNew->gender_;
 		dataOld->blood_ = dataNew->blood_;
 		dataOld->apgar_ = dataNew->apgar_;
 		RefreshItem(index);
-		ret = true;
 	}
-	return ret;
 }
 
-bool BabyList::RemoveItem(const long& index) {
-	bool ret = false;
+void BabyList::RemoveItem(const long& index) {
 	if (index < hash_.size()) {
 		BabyHash::value_type last = hash_[hash_.size() - 1];
 		hash_[index] = last;
 		hash_.pop_back();
-		ret = true;
 		RefreshItem(index);
 		Update();
 	}
-	return ret;
 }
 
 bool BabyList::GetItem(const int index, BabyDataPtr& data) {
@@ -120,29 +116,86 @@ wxString BabyList::OnGetItemText(long index, long column) const {
 		const BabyHash::value_type& data = hash_[index];
 		if (column == BabyDataId::ID_NAME) {
 			return data->name_;
-		}
-		else if (column == BabyDataId::ID_GENDER) {
+		} else if (column == BabyDataId::ID_GENDER) {
 			return data->gender_;
-		}
-		else if (column == BabyDataId::ID_BLOOD_TYPE) {
+		} else if (column == BabyDataId::ID_BLOOD_TYPE) {
 			return data->blood_;
-		}
-		else if (column == BabyDataId::ID_APGAR_SCORE) {
+		} else if (column == BabyDataId::ID_APGAR_SCORE) {
 			return data->apgar_;
 		}
 	}
 	return wxT("Unknown");
 }
 
-void BabyList::OnItemSelect(wxListEvent& e)
-{
+void BabyList::OnItemSelect(wxListEvent& e) {
 	selectIndex_ = e.GetIndex();
 }
 
 void BabyList::OnColClick(wxListEvent& e) {
-	wxString msg;
-	msg.Printf(wxT("col:%d"), e.GetColumn());
-	wxMessageBox(msg);
+	int column = e.GetColumn();
+	if (column < hash_.size()) {
+		if (column == BabyDataId::ID_NAME) {
+			static bool name_ascending = true;
+			name_ascending = !name_ascending;
+			std::sort(hash_.begin(), hash_.end(), [](const BabyHash::value_type &l, const BabyHash::value_type &r) {
+				return std::lexicographical_compare(
+					l->name_.begin(), l->name_.end(),
+					r->name_.begin(), r->name_.end(),
+					[](const string_type::value_type & c1, const string_type::value_type & c2) {
+						if (name_ascending) {
+							return std::toupper(c1) < std::toupper(c2);
+						} else {
+							return std::toupper(c1) > std::toupper(c2);
+						}
+				});
+			});
+		} else if (column == BabyDataId::ID_GENDER) {
+			static bool gender_ascending = true;
+			gender_ascending = !gender_ascending;
+			std::sort(hash_.begin(), hash_.end(), [](const BabyHash::value_type &l, const BabyHash::value_type &r) {
+				return std::lexicographical_compare(
+					l->gender_.begin(), l->gender_.end(),
+					r->gender_.begin(), r->gender_.end(),
+					[](const string_type::value_type & c1, const string_type::value_type & c2) {
+						if (gender_ascending) {
+							return std::toupper(c1) < std::toupper(c2);
+						} else {
+							return std::toupper(c1) > std::toupper(c2);
+						}
+				});
+			});
+		} else if (column == BabyDataId::ID_BLOOD_TYPE) {
+			static bool blood_ascending = true;
+			blood_ascending = !blood_ascending;
+			std::sort(hash_.begin(), hash_.end(), [](const BabyHash::value_type &l, const BabyHash::value_type &r) {
+				return std::lexicographical_compare(
+					l->blood_.begin(), l->blood_.end(),
+					r->blood_.begin(), r->blood_.end(),
+					[](const string_type::value_type & c1, const string_type::value_type & c2) {
+						if (blood_ascending) {
+							return std::toupper(c1) < std::toupper(c2);
+						} else {
+							return std::toupper(c1) > std::toupper(c2);
+						}
+				});
+			});
+		} else if (column == BabyDataId::ID_APGAR_SCORE) {
+			static bool apgar_ascending = true;
+			apgar_ascending = !apgar_ascending;
+			std::sort(hash_.begin(), hash_.end(), [](const BabyHash::value_type &l, const BabyHash::value_type &r) {
+				int lapgar = std::stoi(l->apgar_);
+				int rapgar = std::stoi(r->apgar_);
+				if (apgar_ascending) {
+					return lapgar < rapgar;
+				} else {
+					return lapgar > rapgar;
+				}
+			});
+		}
+	}
+	long top_visible = GetTopItem();
+	long visible_count = GetCountPerPage();
+	RefreshItems(top_visible, top_visible + visible_count);
 }
 
 }

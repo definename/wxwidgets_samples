@@ -19,9 +19,9 @@ public:
 	// Add.
 	void AddItem(BabyDataPtr zooData);
 	// Update item by index.
-	bool BabyList::UpdateItem(const long& index, BabyDataPtr zooDataNew);
+	void BabyList::UpdateItem(const long& index, BabyDataPtr zooDataNew);
 	// Remove item by index.
-	bool BabyList::RemoveItem(const long& index);
+	void BabyList::RemoveItem(const long& index);
 	// Get item by index.
 	bool BabyList::GetItem(const int index, BabyDataPtr& zooData);
 

@@ -19,10 +19,19 @@ namespace baby
 #define BABY_BLOOD_COLON BABY_BLOOD wxT(":")
 #define BABY_APGAR_COLON BABY_APGAR wxT(":")
 
+#define APGAR_MIN 0
+#define APGAR_MAX 10
+#define GENDER_MALE wxT("male")
+#define GENDER_FEMALE wxT("female")
+#define BLOOD_0 wxT("0")
+#define BLOOD_A wxT("A")
+#define BLOOD_B wxT("B")
+#define BLOOD_AB wxT("AB")
+
+// Control it
 enum BabyControlId {
 	ID_LIST_CTRL = 1000
 };
-
 
 // Data id.
 enum BabyDataId {
@@ -41,6 +50,8 @@ enum BabyEvent {
 	ID_ABOUT,
 };
 
+using string_type = std::wstring;
+
 struct BabyData
 {
 	// Friend class.
@@ -54,7 +65,6 @@ struct BabyData
 		ar & apgar_;
 	}
 
-
 	// Construction and destruction.
 public:
 	BabyData() = default;
@@ -66,16 +76,16 @@ public:
 		, apgar_(apgar) {
 	}
 
-	// Public types.
+	// Public members.
 public:
 	// Name.
-	std::wstring name_;
+	string_type name_;
 	// Gender.
-	std::wstring gender_;
+	string_type gender_;
 	// Blood.
-	std::wstring blood_;
+	string_type blood_;
 	// Apgar.
-	std::wstring apgar_;
+	string_type apgar_;
 };
 
 // Baby data pointer type.

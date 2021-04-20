@@ -38,43 +38,32 @@ void BabyFramePanel::OnControl(wxCommandEvent& e) {
 	if (buttonId == BabyEvent::ID_ADD) {
 		BabyAddUpdateDialog* addDialog = new BabyAddUpdateDialog(this, wxT("Add"));
 		if (addDialog->ShowModal() == wxID_OK) {
-			list_->AddItem(addDialog->GetZooData());
+			list_->AddItem(addDialog->GetBabyData());
 		}
 		addDialog->Destroy();
-	}
-	else if (buttonId == BabyEvent::ID_UPDATE) {
+	} else if (buttonId == BabyEvent::ID_UPDATE) {
 		long index;
 		if (list_->GetSelectedIndex(index)) {
 			BabyDataPtr dataOld;
 			if (list_->GetItem(index, dataOld)) {
 				BabyAddUpdateDialog* updateDialog = new BabyAddUpdateDialog(this, wxT("Update"), dataOld);
 				if (updateDialog->ShowModal() == wxID_OK) {
-					BabyDataPtr data = updateDialog->GetZooData();
-					if (!list_->UpdateItem(index, data)) {
-						wxMessageBox(wxT("Failed to update item"), wxT("Update item"), wxICON_WARNING, this);
-					}
+					list_->UpdateItem(index, updateDialog->GetBabyData());
 				}
 				updateDialog->Destroy();
-			}
-			else {
+			} else {
 				wxString msg;
 				msg.Printf("Failed to retrieve item with given index:%d", index);
 				wxMessageBox(msg.ToStdWstring(), wxT("Update item"), wxICON_WARNING, this);
 			}
-		}
-		else {
+		} else {
 			wxMessageBox(wxT("Please select item to update"), wxT("Update item"), wxICON_INFORMATION, this);
 		}
 	} else if (buttonId == BabyEvent::ID_REMOVE) {
 		long index;
 		if (list_->GetSelectedIndex(index)) {
-			if (!list_->RemoveItem(index)) {
-				wxString msg;
-				msg.Printf("Failed to remove item with given index:%d", index);
-				wxMessageBox(msg.ToStdWstring(), wxT("Remove item"), wxICON_WARNING, this);
-			}
-		}
-		else {
+			list_->RemoveItem(index);
+		} else {
 			wxMessageBox(wxT("Please select item to remove"), wxT("Remove item"), wxICON_INFORMATION, this);
 		}
 	}
