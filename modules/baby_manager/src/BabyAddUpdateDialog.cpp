@@ -25,9 +25,8 @@ BabyDataPtr BabyAddUpdateDialog::GetBabyData() const {
 	wxString gender = addUpdatePanel_->GetGender().MakeLower();
 	wxString blood = addUpdatePanel_->GetBlood().MakeUpper();
 
-	long apgar = APGAR_MIN;
-	addUpdatePanel_->GetApgar().ToLong(&apgar);
-	if (apgar < APGAR_MIN || apgar > APGAR_MAX) {
+	long apgar = APGAR_MIN - 1;
+	if (addUpdatePanel_->GetApgar().ToLong(&apgar) && apgar < APGAR_MIN || apgar > APGAR_MAX) {
 		wxMessageBox(wxT("Invalid Apgar score given"), wxT("Apgare score check"), wxICON_WARNING, this->GetParent());
 	} else if (gender.Cmp(GENDER_MALE) != 0 && gender.Cmp(GENDER_FEMALE) != 0) {
 		wxMessageBox(wxT("Invalid gender given"), wxT("Gender check"), wxICON_WARNING, this->GetParent());
