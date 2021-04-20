@@ -17,7 +17,7 @@ public:
 	// Public interface.
 public:
 	// Add.
-	bool AddItem(BabyDataPtr zooData);
+	void AddItem(BabyDataPtr zooData);
 	// Update item by index.
 	bool BabyList::UpdateItem(const long& index, BabyDataPtr zooDataNew);
 	// Remove item by index.
@@ -36,6 +36,10 @@ private:
 	virtual wxString OnGetItemText(long item, long column) const wxOVERRIDE;
 	// Item select handler.
 	void OnItemSelect(wxListEvent& e);
+	// Column has been left clicked
+	void OnColClick(wxListEvent& e);
+
+
 	// Use this macro inside a class declaration to declare a static event table for that class.
 	wxDECLARE_EVENT_TABLE();
 

@@ -6,13 +6,14 @@ namespace baby
 {
 
 wxBEGIN_EVENT_TABLE(BabyList, wxListCtrl)
-	EVT_LIST_ITEM_SELECTED(wxID_ANY, BabyList::OnItemSelect)
+	EVT_LIST_ITEM_SELECTED(BabyControlId::ID_LIST_CTRL, BabyList::OnItemSelect)
+	EVT_LIST_COL_CLICK(BabyControlId::ID_LIST_CTRL, BabyList::OnColClick)
 wxEND_EVENT_TABLE()
 
-const static long listFlags = wxLC_REPORT | wxLC_VIRTUAL | wxBORDER_THEME | wxLC_EDIT_LABELS | wxLC_SINGLE_SEL;
+const static long listFlags = wxLC_REPORT | wxLC_VIRTUAL | wxBORDER_THEME | wxLC_EDIT_LABELS | wxLC_SINGLE_SEL | wxLC_HRULES;
 
 BabyList::BabyList(wxWindow* parent)
-	: wxListCtrl(parent, wxID_ANY, wxDefaultPosition, parent->GetSize(), listFlags)
+	: wxListCtrl(parent, BabyControlId::ID_LIST_CTRL, wxDefaultPosition, parent->GetSize(), listFlags)
 	, selectIndex_(-1) {
 
 	wxListItem name;
@@ -55,13 +56,12 @@ BabyList::~BabyList() {
 	catch (std::exception&) {
 		wxMessageBox(wxT("Failed to serialize zoo data"), wxT("Serialize zoo data"), wxICON_WARNING, this);
 	}
-	hash_.clear();
+	hash_.swap(BabyHash());
 }
 
-bool BabyList::AddItem(BabyDataPtr zooData) {
-	auto ret = hash_.insert(BabyHash::value_type(hash_.size(), zooData));
+void BabyList::AddItem(BabyDataPtr zooData) {
+	hash_.push_back(zooData);
 	Update();
-	return ret.second;
 }
 
 bool BabyList::UpdateItem(const long& index, BabyDataPtr dataNew) {
@@ -80,11 +80,10 @@ bool BabyList::UpdateItem(const long& index, BabyDataPtr dataNew) {
 
 bool BabyList::RemoveItem(const long& index) {
 	bool ret = false;
-	BabyHash::iterator it = hash_.find(index);
-	if (it != hash_.end()) {
-		long lastIndex = hash_.size() - 1;
-		it->second = hash_[lastIndex];
-		hash_.erase(lastIndex);
+	if (index < hash_.size()) {
+		BabyHash::value_type last = hash_[hash_.size() - 1];
+		hash_[index] = last;
+		hash_.pop_back();
 		ret = true;
 		RefreshItem(index);
 		Update();
@@ -94,9 +93,8 @@ bool BabyList::RemoveItem(const long& index) {
 
 bool BabyList::GetItem(const int index, BabyDataPtr& data) {
 	bool ret = false;
-	BabyHash::iterator it = hash_.find(index);
-	if (it != hash_.end()) {
-		data = it->second;
+	if (index < hash_.size()) {
+		data = hash_[index];
 		ret = true;
 	}
 	return ret;
@@ -104,30 +102,6 @@ bool BabyList::GetItem(const int index, BabyDataPtr& data) {
 
 void BabyList::Update() {
 	SetItemCount(hash_.size());
-}
-
-wxString BabyList::OnGetItemText(long item, long column) const {
-	BabyHash::const_iterator it = hash_.find(item);
-	if (it != hash_.end()) {
-		if (column == BabyDataId::ID_NAME) {
-			return it->second->name_;
-		}
-		else if (column == BabyDataId::ID_GENDER) {
-			return it->second->gender_;
-		}
-		else if (column == BabyDataId::ID_BLOOD_TYPE) {
-			return it->second->blood_;
-		}
-		else if (column == BabyDataId::ID_APGAR_SCORE) {
-			return it->second->apgar_;
-		}
-	}
-	return wxT("Unknown");
-}
-
-void BabyList::OnItemSelect(wxListEvent& e)
-{
-	selectIndex_ = e.GetIndex();
 }
 
 bool BabyList::GetSelectedIndex(long& index) {
@@ -139,6 +113,36 @@ bool BabyList::GetSelectedIndex(long& index) {
 	}
 	index = selectIndex_;
 	return ret;
+}
+
+wxString BabyList::OnGetItemText(long index, long column) const {
+	if (index < hash_.size()) {
+		const BabyHash::value_type& data = hash_[index];
+		if (column == BabyDataId::ID_NAME) {
+			return data->name_;
+		}
+		else if (column == BabyDataId::ID_GENDER) {
+			return data->gender_;
+		}
+		else if (column == BabyDataId::ID_BLOOD_TYPE) {
+			return data->blood_;
+		}
+		else if (column == BabyDataId::ID_APGAR_SCORE) {
+			return data->apgar_;
+		}
+	}
+	return wxT("Unknown");
+}
+
+void BabyList::OnItemSelect(wxListEvent& e)
+{
+	selectIndex_ = e.GetIndex();
+}
+
+void BabyList::OnColClick(wxListEvent& e) {
+	wxString msg;
+	msg.Printf(wxT("col:%d"), e.GetColumn());
+	wxMessageBox(msg);
 }
 
 }

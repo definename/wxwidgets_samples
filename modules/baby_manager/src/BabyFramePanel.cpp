@@ -38,10 +38,7 @@ void BabyFramePanel::OnControl(wxCommandEvent& e) {
 	if (buttonId == BabyEvent::ID_ADD) {
 		BabyAddUpdateDialog* addDialog = new BabyAddUpdateDialog(this, wxT("Add"));
 		if (addDialog->ShowModal() == wxID_OK) {
-			BabyDataPtr data = addDialog->GetZooData();
-			if (!list_->AddItem(data)) {
-				wxMessageBox(wxT("Failed to add item"), wxT("Add item"), wxICON_WARNING, this);
-			}
+			list_->AddItem(addDialog->GetZooData());
 		}
 		addDialog->Destroy();
 	}

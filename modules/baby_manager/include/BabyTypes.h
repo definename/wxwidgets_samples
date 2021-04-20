@@ -19,6 +19,10 @@ namespace baby
 #define BABY_BLOOD_COLON BABY_BLOOD wxT(":")
 #define BABY_APGAR_COLON BABY_APGAR wxT(":")
 
+enum BabyControlId {
+	ID_LIST_CTRL = 1000
+};
+
 
 // Data id.
 enum BabyDataId {
@@ -77,6 +81,6 @@ public:
 // Baby data pointer type.
 using BabyDataPtr = std::shared_ptr<BabyData>;
 // Baby hash type.
-using BabyHash = std::unordered_map<int, BabyDataPtr>;
+using BabyHash = std::vector<BabyDataPtr>;
 
 };
