@@ -15,6 +15,8 @@ BabyFramePanel::BabyFramePanel(wxWindow* parent)
 	: wxPanel(parent, wxID_ANY, wxDefaultPosition, parent->GetSize())
 	, list_(new BabyList(this)) {
 
+	SetBackgroundColour(BABY_PANEL_COLOUR);
+
 	wxImageList* imageList16 = new wxImageList(16, 16, true, 1);
 	imageList16->Add(wxICON(COLUMN_SELECTED));
 	list_->SetImageList(imageList16, wxIMAGE_LIST_SMALL);
@@ -27,9 +29,9 @@ BabyFramePanel::BabyFramePanel(wxWindow* parent)
 	
 	// Buttons.
 	wxBoxSizer* controlSizer = new wxBoxSizer(wxVERTICAL);
-	controlSizer->Add(new wxButton(this, BabyEvent::ID_ADD, wxT("Add")), 1, wxSTRETCH_NOT);
-	controlSizer->Add(new wxButton(this, BabyEvent::ID_UPDATE, wxT("Update")), 1, wxSTRETCH_NOT);
-	controlSizer->Add(new wxButton(this, BabyEvent::ID_REMOVE, wxT("Remove")), 1, wxSTRETCH_NOT);
+	controlSizer->Add(new wxButton(this, BabyEvent::ID_ADD, BABY_ACTION_ADD_TEXT), 1, wxSTRETCH_NOT);
+	controlSizer->Add(new wxButton(this, BabyEvent::ID_EDIT, BABY_ACTION_EDIT_TEXT), 1, wxSTRETCH_NOT);
+	controlSizer->Add(new wxButton(this, BabyEvent::ID_DELETE, BABY_ACTION_DELETE_TEXT), 1, wxSTRETCH_NOT);
 
 	topSizer->Add(controlSizer, 0, wxSTRETCH_NOT | wxUP | wxDOWN | wxRIGHT, border_size);
 
@@ -45,7 +47,7 @@ void BabyFramePanel::OnControl(wxCommandEvent& e) {
 			list_->AddItem(addDialog->GetBabyData());
 		}
 		addDialog->Destroy();
-	} else if (buttonId == BabyEvent::ID_UPDATE) {
+	} else if (buttonId == BabyEvent::ID_EDIT) {
 		long index;
 		if (list_->GetSelectedIndex(index)) {
 			BabyDataPtr dataOld;
@@ -63,7 +65,7 @@ void BabyFramePanel::OnControl(wxCommandEvent& e) {
 		} else {
 			wxMessageBox(wxT("Please select item to update"), wxT("Update item"), wxICON_INFORMATION, this);
 		}
-	} else if (buttonId == BabyEvent::ID_REMOVE) {
+	} else if (buttonId == BabyEvent::ID_DELETE) {
 		long index;
 		if (list_->GetSelectedIndex(index)) {
 			list_->RemoveItem(index);

@@ -26,6 +26,7 @@
 	#include <wx/wx.h>
 #endif
 
+#include <wx/artprov.h>
 #include <wx/listctrl.h>
 #include <wx/button.h>
 #include <wx/dialog.h>

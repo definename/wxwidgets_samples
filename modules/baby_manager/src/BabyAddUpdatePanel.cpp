@@ -7,6 +7,9 @@ namespace baby
 
 BabyAddUpdatePanel::BabyAddUpdatePanel(wxWindow* parent)
 	: wxPanel(parent, wxID_ANY, wxDefaultPosition, parent->GetSize()) {
+
+	SetBackgroundColour(BABY_PANEL_COLOUR);
+
 	const int borderSize = 2;
 	const wxSize textSize = wxSize(80, wxDefaultPosition.y);
 	const wxPoint textPos = wxDefaultPosition;

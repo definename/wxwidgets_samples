@@ -15,27 +15,39 @@ BabyFrame::BabyFrame()
 
 	// Menu file
 	wxMenu* menuFile = new wxMenu;
+	wxMenu* menuBaby = new wxMenu;
+	menuFile->AppendSubMenu(menuBaby, wxT("Baby"));
 
-	wxMenu* menuAnimal = new wxMenu;
-	menuAnimal->Append(BabyEvent::ID_ADD, wxT("Add"));
-	menuAnimal->Append(BabyEvent::ID_UPDATE, wxT("Update"));
-	menuAnimal->Append(BabyEvent::ID_REMOVE, wxT("Remove"));
-
-	menuFile->AppendSubMenu(menuAnimal, wxT("Baby"));
+	// Sub menu baby
+	wxMenuItem* addItem = new wxMenuItem(menuBaby, BabyEvent::ID_ADD, BABY_ACTION_ADD_TEXT);
+	addItem->SetBitmap(wxArtProvider::GetBitmap(wxART_NEW));
+	menuBaby->Append(addItem);
+	wxMenuItem* editItem = new wxMenuItem(menuBaby, BabyEvent::ID_EDIT, BABY_ACTION_EDIT_TEXT);
+	editItem->SetBitmap(wxArtProvider::GetBitmap(wxART_EDIT));
+	menuBaby->Append(editItem);
+	wxMenuItem* deleteItem = new wxMenuItem(menuBaby, BabyEvent::ID_DELETE, BABY_ACTION_DELETE_TEXT);
+	deleteItem->SetBitmap(wxArtProvider::GetBitmap(wxART_DELETE));
+	menuBaby->Append(deleteItem);
 
 	menuFile->AppendSeparator();
-	menuFile->Append(BabyEvent::ID_EXIT, wxT("&Exit"));
 
-	// Menu about
-	wxMenu* menuAbout = new wxMenu;
-	menuAbout->Append(BabyEvent::ID_ABOUT, wxT("&About"));
+	wxMenuItem* exitItem = new wxMenuItem(menuFile, BabyEvent::ID_EXIT, wxT("&Exit"));
+	exitItem->SetBitmap(wxArtProvider::GetBitmap(wxART_QUIT));
+	menuFile->Append(exitItem);
 
+	// Menu help
+	wxMenu* menuHelp = new wxMenu;
+	wxMenuItem* aboutItem = new wxMenuItem(menuHelp, BabyEvent::ID_ABOUT, wxT("&About\tF1"));
+	aboutItem->SetBitmap(wxArtProvider::GetBitmap(wxART_HELP_BOOK));
+	menuHelp->Append(aboutItem);
+
+	// Complete menu
 	wxMenuBar* menubar = new wxMenuBar;
 	menubar->Append(menuFile, wxT("&File"));
-	menubar->Append(menuAbout, wxT("&Help"));
+	menubar->Append(menuHelp, wxT("&Help"));
 	SetMenuBar(menubar);
 
-	Bind(wxEVT_MENU, &BabyFramePanel::OnControl, panel_, BabyEvent::ID_ADD, BabyEvent::ID_REMOVE);
+	Bind(wxEVT_MENU, &BabyFramePanel::OnControl, panel_, BabyEvent::ID_ADD, BabyEvent::ID_DELETE);
 	Bind(wxEVT_MENU, &BabyFrame::OnMenuEvent, this, BabyEvent::ID_EXIT, BabyEvent::ID_ABOUT);
 }
 

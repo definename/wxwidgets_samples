@@ -9,6 +9,12 @@ namespace baby
 	"Kharkiv 2021\n"					\
 	"Version 1.0.0.1")					\
 
+#define BABY_PANEL_COLOUR wxColour(230, 200, 180)
+
+#define BABY_ACTION_ADD_TEXT wxT("Add")
+#define BABY_ACTION_EDIT_TEXT wxT("Edit")
+#define BABY_ACTION_DELETE_TEXT wxT("Delete")
+
 #define BABY_NAME wxT("Name")
 #define BABY_GENDER wxT("Gender")
 #define BABY_BLOOD wxT("Blood type")
@@ -44,8 +50,8 @@ enum BabyDataId {
 // Event type.
 enum BabyEvent {
 	ID_ADD = 0,
-	ID_UPDATE,
-	ID_REMOVE,
+	ID_EDIT,
+	ID_DELETE,
 	ID_EXIT,
 	ID_ABOUT,
 };
