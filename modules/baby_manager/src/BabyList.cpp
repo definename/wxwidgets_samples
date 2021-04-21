@@ -16,29 +16,25 @@ BabyList::BabyList(wxWindow* parent)
 	: wxListCtrl(parent, BabyControlId::ID_LIST_CTRL, wxDefaultPosition, parent->GetSize(), listFlags)
 	, selectIndex_(-1) {
 
-	wxListItem name;
-	name.SetId(BabyDataId::ID_NAME);
-	name.SetText(BABY_NAME);
-	name.SetWidth(100);
-	InsertColumn(name.GetId(), name);
+	wxListItem item;
+	item.SetWidth(100);
+	item.SetImage(-1);
 
-	wxListItem gender;
-	gender.SetId(BabyDataId::ID_GENDER);
-	gender.SetText(BABY_GENDER);
-	gender.SetWidth(100);
-	InsertColumn(gender.GetId(), gender);
+	item.SetId(BabyDataId::ID_NAME);
+	item.SetText(BABY_NAME);
+	InsertColumn(item.GetId(), item);
 
-	wxListItem blood;
-	blood.SetId(BabyDataId::ID_BLOOD_TYPE);
-	blood.SetText(BABY_BLOOD);
-	blood.SetWidth(100);
-	InsertColumn(blood.GetId(), blood);
+	item.SetId(BabyDataId::ID_GENDER);
+	item.SetText(BABY_GENDER);
+	InsertColumn(item.GetId(), item);
 
-	wxListItem apgar;
-	apgar.SetId(BabyDataId::ID_APGAR_SCORE);
-	apgar.SetText(BABY_APGAR);
-	apgar.SetWidth(100);
-	InsertColumn(apgar.GetId(), apgar);
+	item.SetId(BabyDataId::ID_BLOOD_TYPE);
+	item.SetText(BABY_BLOOD);
+	InsertColumn(item.GetId(), item);
+
+	item.SetId(BabyDataId::ID_APGAR_SCORE);
+	item.SetText(BABY_APGAR);
+	InsertColumn(item.GetId(), item);
 
 	// De-serialize zoo data container.
 	if (db_path.FileExists()) {
@@ -127,6 +123,10 @@ wxString BabyList::OnGetItemText(long index, long column) const {
 	return wxT("Unknown");
 }
 
+int BabyList::OnGetItemColumnImage(long item, long column) const {
+	return -1;
+}
+
 void BabyList::OnItemSelect(wxListEvent& e) {
 	selectIndex_ = e.GetIndex();
 }
@@ -193,6 +193,14 @@ void BabyList::OnColClick(wxListEvent& e) {
 			});
 		}
 	}
+
+	wxListItem item;
+	item.SetMask(wxLIST_MASK_IMAGE);
+	for (int i = 0; i < GetColumnCount(); ++i) {
+		item.SetImage(i == column ? 0 : -1);
+		SetColumn(i, item);
+	}
+
 	long top_visible = GetTopItem();
 	long visible_count = GetCountPerPage();
 	RefreshItems(top_visible, top_visible + visible_count);

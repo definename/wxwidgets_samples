@@ -15,6 +15,10 @@ BabyFramePanel::BabyFramePanel(wxWindow* parent)
 	: wxPanel(parent, wxID_ANY, wxDefaultPosition, parent->GetSize())
 	, list_(new BabyList(this)) {
 
+	wxImageList* imageList16 = new wxImageList(16, 16, true, 1);
+	imageList16->Add(wxICON(COLUMN_SELECTED));
+	list_->SetImageList(imageList16, wxIMAGE_LIST_SMALL);
+
 	wxBoxSizer* topSizer = new wxBoxSizer(wxHORIZONTAL);
 	const int border_size = 2;
 

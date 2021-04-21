@@ -38,7 +38,7 @@ enum BabyDataId {
 	ID_NAME = 0,
 	ID_GENDER,
 	ID_BLOOD_TYPE,
-	ID_APGAR_SCORE
+	ID_APGAR_SCORE,
 };
 
 // Event type.

@@ -10,7 +10,7 @@ BabyFrame::BabyFrame()
 	: wxFrame(NULL, wxID_ANY, wxT("Baby Manager"), wxDefaultPosition, wxSize(550, 300), wxDEFAULT_FRAME_STYLE)
 	, panel_(new BabyFramePanel(this))
 {
-	SetIcon(wxICON(IDI_ICON));
+	SetIcon(wxICON(FRAME_ICON));
 	SetMinSize(GetSize());
 
 	// Menu file

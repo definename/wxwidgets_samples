@@ -21,7 +21,9 @@ set(PROJECT_SOURCES
 	src/BabyList.cpp
 	)
 set(PROJECT_RESOURCES
-	src/res/nullapp.ico
+	src/res/frame.ico
+	src/res/column_up.ico
+	src/res/column_down.ico
 	${CMAKE_CURRENT_BINARY_DIR}/nullapp.rc
 	)
 set(MISC

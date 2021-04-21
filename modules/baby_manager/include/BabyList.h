@@ -34,6 +34,8 @@ public:
 private:
 	// It returns the string containing the text of the given column for the specified item.
 	virtual wxString OnGetItemText(long item, long column) const wxOVERRIDE;
+	// Specify the image index for the given line and column
+	virtual int OnGetItemColumnImage(long item, long column) const wxOVERRIDE;
 	// Item select handler.
 	void OnItemSelect(wxListEvent& e);
 	// Column has been left clicked
