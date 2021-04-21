@@ -22,8 +22,7 @@ set(PROJECT_SOURCES
 	)
 set(PROJECT_RESOURCES
 	src/res/frame.ico
-	src/res/column_up.ico
-	src/res/column_down.ico
+	src/res/column_selected.ico
 	${CMAKE_CURRENT_BINARY_DIR}/nullapp.rc
 	)
 set(MISC
