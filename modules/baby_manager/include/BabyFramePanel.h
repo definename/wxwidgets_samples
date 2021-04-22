@@ -24,6 +24,7 @@ public:
 public:
 	// Control event handler.
 	void OnControl(wxCommandEvent& e);
+
 	// Any class wishing to process wxWidgets events must use this macro.
 	wxDECLARE_EVENT_TABLE();
 

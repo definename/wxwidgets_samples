@@ -40,6 +40,8 @@ private:
 	void OnItemSelect(wxListEvent& e);
 	// Column has been left clicked
 	void OnColClick(wxListEvent& e);
+	// List has been sorted
+	void OnListSorted(wxCommandEvent& e);
 
 
 	// Use this macro inside a class declaration to declare a static event table for that class.

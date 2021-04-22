@@ -5,9 +5,12 @@
 namespace baby
 {
 
+wxDEFINE_EVENT(BABY_LIST_SORTED, wxCommandEvent);
+
 wxBEGIN_EVENT_TABLE(BabyList, wxListCtrl)
 	EVT_LIST_ITEM_SELECTED(BabyControlId::ID_LIST_CTRL, BabyList::OnItemSelect)
 	EVT_LIST_COL_CLICK(BabyControlId::ID_LIST_CTRL, BabyList::OnColClick)
+	EVT_COMMAND(wxID_ANY, BABY_LIST_SORTED, BabyList::OnListSorted)
 wxEND_EVENT_TABLE()
 
 const static long listFlags = wxLC_REPORT | wxLC_VIRTUAL | wxBORDER_THEME | wxLC_EDIT_LABELS | wxLC_SINGLE_SEL | wxLC_HRULES;
@@ -123,7 +126,7 @@ wxString BabyList::OnGetItemText(long index, long column) const {
 	return wxT("Unknown");
 }
 
-int BabyList::OnGetItemColumnImage(long item, long column) const {
+int BabyList::OnGetItemColumnImage(long WXUNUSED(item), long WXUNUSED(column)) const {
 	return -1;
 }
 
@@ -133,7 +136,7 @@ void BabyList::OnItemSelect(wxListEvent& e) {
 
 void BabyList::OnColClick(wxListEvent& e) {
 	int column = e.GetColumn();
-	if (column < hash_.size()) {
+	if (column <= hash_.size()) {
 		if (column == BabyDataId::ID_NAME) {
 			static bool name_ascending = true;
 			name_ascending = !name_ascending;
@@ -194,13 +197,21 @@ void BabyList::OnColClick(wxListEvent& e) {
 		}
 	}
 
+	wxCommandEvent sortedEven(BABY_LIST_SORTED);
+	sortedEven.SetInt(column);
+	wxPostEvent(this, sortedEven);
+}
+
+void BabyList::OnListSorted(wxCommandEvent& e) {
+	// Update column icon
+	int column = e.GetInt();
 	wxListItem item;
 	item.SetMask(wxLIST_MASK_IMAGE);
 	for (int i = 0; i < GetColumnCount(); ++i) {
 		item.SetImage(i == column ? 0 : -1);
 		SetColumn(i, item);
 	}
-
+	// Update list control
 	long top_visible = GetTopItem();
 	long visible_count = GetCountPerPage();
 	RefreshItems(top_visible, top_visible + visible_count);
