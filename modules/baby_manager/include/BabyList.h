@@ -42,7 +42,8 @@ private:
 	void OnColClick(wxListEvent& e);
 	// List has been sorted
 	void OnListSorted(wxCommandEvent& e);
-
+	// Window destroy event handler
+	void OnDestroy(wxWindowDestroyEvent& e);
 
 	// Use this macro inside a class declaration to declare a static event table for that class.
 	wxDECLARE_EVENT_TABLE();

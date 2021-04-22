@@ -24,6 +24,8 @@ public:
 private:
 	// Menu event handler.
 	void OnMenuEvent(wxCommandEvent& e);
+	// On close event handler
+	void OnClose(wxCloseEvent& e);
 
 	// Private members.
 private:

@@ -10,6 +10,8 @@ BabyFrame::BabyFrame()
 	: wxFrame(NULL, wxID_ANY, wxT("Baby Manager"), wxDefaultPosition, wxSize(550, 300), wxDEFAULT_FRAME_STYLE)
 	, panel_(new BabyFramePanel(this))
 {
+	Bind(wxEVT_CLOSE_WINDOW, &BabyFrame::OnClose, this);
+
 	SetIcon(wxICON(FRAME_ICON));
 	SetMinSize(GetSize());
 
@@ -56,10 +58,13 @@ void BabyFrame::OnMenuEvent(wxCommandEvent& e)
 	const BabyEvent menuId = static_cast<BabyEvent>(e.GetId());
 	if (menuId == BabyEvent::ID_ABOUT) {
 		wxMessageBox(BABY_MGR_ABOUT, wxT("About"), wxOK | wxCENTRE, this);
-	}
-	else if (menuId == BabyEvent::ID_EXIT) {
+	} else if (menuId == BabyEvent::ID_EXIT) {
 		Close();
 	}
+}
+
+void BabyFrame::OnClose(wxCloseEvent& WXUNUSED(e)) {
+	Destroy();
 }
 
 }

@@ -19,6 +19,8 @@ BabyList::BabyList(wxWindow* parent)
 	: wxListCtrl(parent, BabyControlId::ID_LIST_CTRL, wxDefaultPosition, parent->GetSize(), listFlags)
 	, selectIndex_(-1) {
 
+	Bind(wxEVT_DESTROY, &BabyList::OnDestroy, this);
+
 	wxListItem item;
 	item.SetWidth(100);
 	item.SetImage(-1);
@@ -215,6 +217,10 @@ void BabyList::OnListSorted(wxCommandEvent& e) {
 	long top_visible = GetTopItem();
 	long visible_count = GetCountPerPage();
 	RefreshItems(top_visible, top_visible + visible_count);
+}
+
+void BabyList::OnDestroy(wxWindowDestroyEvent& WXUNUSED(e)) {
+	// Try to stop thread here
 }
 
 }
