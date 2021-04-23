@@ -5,12 +5,9 @@
 namespace baby
 {
 
-wxDEFINE_EVENT(BABY_LIST_SORTED, wxCommandEvent);
-
 wxBEGIN_EVENT_TABLE(BabyList, wxListCtrl)
 	EVT_LIST_ITEM_SELECTED(BabyControlId::ID_LIST_CTRL, BabyList::OnItemSelect)
 	EVT_LIST_COL_CLICK(BabyControlId::ID_LIST_CTRL, BabyList::OnColClick)
-	EVT_COMMAND(wxID_ANY, BABY_LIST_SORTED, BabyList::OnListSorted)
 wxEND_EVENT_TABLE()
 
 const static long listFlags = wxLC_REPORT | wxLC_VIRTUAL | wxBORDER_THEME | wxLC_EDIT_LABELS | wxLC_SINGLE_SEL | wxLC_HRULES;
@@ -20,6 +17,14 @@ BabyList::BabyList(wxWindow* parent)
 	, selectIndex_(-1) {
 
 	Bind(wxEVT_DESTROY, &BabyList::OnDestroy, this);
+	Bind(wxEVT_THREAD, &BabyList::OnThreadEvent, this);
+
+	// Launch thread
+	if (CreateThread(wxTHREAD_JOINABLE) == wxTHREAD_NO_ERROR) {
+		if (GetThread()->Run() != wxTHREAD_NO_ERROR) {
+			wxMessageBox(wxT("Failed to run list thread, sorting stuff won't work"));
+		}
+	}
 
 	wxListItem item;
 	item.SetWidth(100);
@@ -53,8 +58,7 @@ BabyList::~BabyList() {
 		// Serialize zoo data container.
 		std::ofstream ofile(db_path.GetFullPath().ToStdWstring(), std::ios::out | std::ios::binary);
 		SerializeTo<boost::archive::binary_oarchive>(hash_, ofile);
-	}
-	catch (std::exception&) {
+	} catch (std::exception&) {
 		wxMessageBox(wxT("Failed to serialize zoo data"), wxT("Serialize zoo data"), wxICON_WARNING, this);
 	}
 	hash_.swap(BabyHash());
@@ -129,6 +133,7 @@ wxString BabyList::OnGetItemText(long index, long column) const {
 }
 
 int BabyList::OnGetItemColumnImage(long WXUNUSED(item), long WXUNUSED(column)) const {
+	// This handler was defined to make compiler happy
 	return -1;
 }
 
@@ -137,74 +142,11 @@ void BabyList::OnItemSelect(wxListEvent& e) {
 }
 
 void BabyList::OnColClick(wxListEvent& e) {
-	int column = e.GetColumn();
-	if (column <= hash_.size()) {
-		if (column == BabyDataId::ID_NAME) {
-			static bool name_ascending = true;
-			name_ascending = !name_ascending;
-			std::sort(hash_.begin(), hash_.end(), [](const BabyHash::value_type &l, const BabyHash::value_type &r) {
-				return std::lexicographical_compare(
-					l->name_.begin(), l->name_.end(),
-					r->name_.begin(), r->name_.end(),
-					[](const string_type::value_type & c1, const string_type::value_type & c2) {
-						if (name_ascending) {
-							return std::toupper(c1) < std::toupper(c2);
-						} else {
-							return std::toupper(c1) > std::toupper(c2);
-						}
-				});
-			});
-		} else if (column == BabyDataId::ID_GENDER) {
-			static bool gender_ascending = true;
-			gender_ascending = !gender_ascending;
-			std::sort(hash_.begin(), hash_.end(), [](const BabyHash::value_type &l, const BabyHash::value_type &r) {
-				return std::lexicographical_compare(
-					l->gender_.begin(), l->gender_.end(),
-					r->gender_.begin(), r->gender_.end(),
-					[](const string_type::value_type & c1, const string_type::value_type & c2) {
-						if (gender_ascending) {
-							return std::toupper(c1) < std::toupper(c2);
-						} else {
-							return std::toupper(c1) > std::toupper(c2);
-						}
-				});
-			});
-		} else if (column == BabyDataId::ID_BLOOD_TYPE) {
-			static bool blood_ascending = true;
-			blood_ascending = !blood_ascending;
-			std::sort(hash_.begin(), hash_.end(), [](const BabyHash::value_type &l, const BabyHash::value_type &r) {
-				return std::lexicographical_compare(
-					l->blood_.begin(), l->blood_.end(),
-					r->blood_.begin(), r->blood_.end(),
-					[](const string_type::value_type & c1, const string_type::value_type & c2) {
-						if (blood_ascending) {
-							return std::toupper(c1) < std::toupper(c2);
-						} else {
-							return std::toupper(c1) > std::toupper(c2);
-						}
-				});
-			});
-		} else if (column == BabyDataId::ID_APGAR_SCORE) {
-			static bool apgar_ascending = true;
-			apgar_ascending = !apgar_ascending;
-			std::sort(hash_.begin(), hash_.end(), [](const BabyHash::value_type &l, const BabyHash::value_type &r) {
-				int lapgar = std::stoi(l->apgar_);
-				int rapgar = std::stoi(r->apgar_);
-				if (apgar_ascending) {
-					return lapgar < rapgar;
-				} else {
-					return lapgar > rapgar;
-				}
-			});
-		}
-	}
-
-	wxCommandEvent sortedEven(BABY_LIST_SORTED);
-	sortedEven.SetInt(column);
-	wxPostEvent(this, sortedEven);
+	ThreadQueue::Message m = static_cast<BabyDataId>(e.GetColumn());
+	threadQueue_.Post(m);
 }
 
-void BabyList::OnListSorted(wxCommandEvent& e) {
+void BabyList::OnThreadEvent(wxThreadEvent& e) {
 	// Update column icon
 	int column = e.GetInt();
 	wxListItem item;
@@ -220,7 +162,93 @@ void BabyList::OnListSorted(wxCommandEvent& e) {
 }
 
 void BabyList::OnDestroy(wxWindowDestroyEvent& WXUNUSED(e)) {
-	// Try to stop thread here
+	if (GetThread() && GetThread()->IsRunning()) {
+		threadQueue_.Clear();
+		threadQueue_.Post(BabyDataId::ID_UNKNOWN);
+		GetThread()->Wait();
+	}
+}
+
+wxThread::ExitCode BabyList::Entry() {
+	while (!GetThread()->TestDestroy()) {
+		ThreadQueue::Message m = BabyDataId::ID_UNKNOWN;
+		if (threadQueue_.ReceiveTimeout(0.5, m) == wxMSGQUEUE_TIMEOUT) {
+			continue;
+		}
+
+		if (m == BabyDataId::ID_APGAR_SCORE) {
+			static bool apgar_ascending = true;
+			apgar_ascending = !apgar_ascending;
+			std::sort(hash_.begin(), hash_.end(), [](const BabyHash::value_type & l, const BabyHash::value_type & r) {
+				int lapgar = std::stoi(l->apgar_);
+				int rapgar = std::stoi(r->apgar_);
+				if (apgar_ascending) {
+					return lapgar < rapgar;
+				}
+				else {
+					return lapgar > rapgar;
+				}
+				});
+		} else if (m == BabyDataId::ID_BLOOD_TYPE) {
+			static bool blood_ascending = true;
+			blood_ascending = !blood_ascending;
+			std::sort(hash_.begin(), hash_.end(), [](const BabyHash::value_type & l, const BabyHash::value_type & r) {
+				return std::lexicographical_compare(
+					l->blood_.begin(), l->blood_.end(),
+					r->blood_.begin(), r->blood_.end(),
+					[](const string_type::value_type & c1, const string_type::value_type & c2) {
+						if (blood_ascending) {
+							return std::toupper(c1) < std::toupper(c2);
+						}
+						else {
+							return std::toupper(c1) > std::toupper(c2);
+						}
+					});
+				});
+		} else if (m == BabyDataId::ID_GENDER) {
+			static bool gender_ascending = true;
+			gender_ascending = !gender_ascending;
+			std::sort(hash_.begin(), hash_.end(), [](const BabyHash::value_type & l, const BabyHash::value_type & r) {
+				return std::lexicographical_compare(
+					l->gender_.begin(), l->gender_.end(),
+					r->gender_.begin(), r->gender_.end(),
+					[](const string_type::value_type & c1, const string_type::value_type & c2) {
+						if (gender_ascending) {
+							return std::toupper(c1) < std::toupper(c2);
+						}
+						else {
+							return std::toupper(c1) > std::toupper(c2);
+						}
+					});
+				});
+		} else if (m == BabyDataId::ID_NAME) {
+			static bool name_ascending = true;
+			name_ascending = !name_ascending;
+			std::sort(hash_.begin(), hash_.end(), [](const BabyHash::value_type & l, const BabyHash::value_type & r) {
+				return std::lexicographical_compare(
+					l->name_.begin(), l->name_.end(),
+					r->name_.begin(), r->name_.end(),
+					[](const string_type::value_type & c1, const string_type::value_type & c2) {
+						if (name_ascending) {
+							return std::toupper(c1) < std::toupper(c2);
+						}
+						else {
+							return std::toupper(c1) > std::toupper(c2);
+						}
+					});
+				});
+		} else if (m == BabyDataId::ID_UNKNOWN) {
+			break;
+		} else {
+			continue;
+		}
+
+		// Update list control
+		wxThreadEvent* e = new wxThreadEvent();
+		e->SetInt(m);
+		wxQueueEvent(GetEventHandler(), e);
+	}
+	return (wxThread::ExitCode)0;
 }
 
 }

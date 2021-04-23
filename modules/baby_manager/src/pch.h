@@ -27,8 +27,9 @@
 #endif
 
 #include <wx/artprov.h>
-#include <wx/listctrl.h>
 #include <wx/button.h>
 #include <wx/dialog.h>
-#include <wx/textctrl.h>
 #include <wx/filename.h>
+#include <wx/listctrl.h>
+#include <wx/msgqueue.h>
+#include <wx/textctrl.h>

@@ -45,6 +45,7 @@ enum BabyDataId {
 	ID_GENDER,
 	ID_BLOOD_TYPE,
 	ID_APGAR_SCORE,
+	ID_UNKNOWN,
 };
 
 // Event type.
