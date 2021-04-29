@@ -46,7 +46,7 @@ BabyList::BabyList(wxWindow* parent)
 	item.SetText(BABY_APGAR);
 	InsertColumn(item.GetId(), item);
 
-	// De-serialize zoo data container.
+	// De-serialize container.
 	if (db_path.FileExists()) {
 		std::ifstream ifile(db_path.GetFullPath().ToStdWstring(), std::ios::in | std::ios::binary);
 		DeserializeFrom<boost::archive::binary_iarchive>(ifile, hash_);
@@ -55,7 +55,7 @@ BabyList::BabyList(wxWindow* parent)
 
 BabyList::~BabyList() {
 	try {
-		// Serialize zoo data container.
+		// Serialize container.
 		std::ofstream ofile(db_path.GetFullPath().ToStdWstring(), std::ios::out | std::ios::binary);
 		SerializeTo<boost::archive::binary_oarchive>(hash_, ofile);
 	} catch (std::exception&) {
